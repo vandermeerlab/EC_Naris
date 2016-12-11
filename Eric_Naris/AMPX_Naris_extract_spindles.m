@@ -192,3 +192,195 @@ for iSess = 1:length(session_list)
         all_data.(session_list{iSess}).spindles = [] ;
     end
 end
+
+
+%% collect all the events across all the detection channels by combining all the IVs and then comparing them to the VL
+fname = 'R049-2014-02-07';
+fname = strrep(fname, '_', '-');
+cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+[data, data_ft] = AMPX_Naris_preprocess([],fname,'pre');
+
+LoadExpKeys
+% Organize the data to fit the probe lay out in the 8x8 format.
+% Data about the probemapping
+
+data_remap_AMPX = AMPX_remap_sites(data, ExpKeys)
+
+data_remap_FT = AMPX_remap_sites(data_ft, ExpKeys)
+clear data_ft
+
+ExpKeys_remap = AMPX_remap_ExpKeys(ExpKeys, data_remap_AMPX);
+
+
+
+detect_chan = fieldnames(detect_all);
+all_events = []; 
+bands = {'low', 'high', 'ctrl_low', 'ctrl_high', 'spindles'};
+
+for iChan = 1:length(detect_chan)
+    if iChan ==1
+        all_events = detect_all.(detect_chan{iChan});
+        all_events.spindles = all_events.spindles.evts;
+    end
+    for ibands = 1:length(bands)
+        if isfield(detect_all.(detect_chan{iChan}), bands{ibands})
+            if ibands <5
+                all_events.(bands{ibands}) = UnionIV([], all_events.(bands{ibands}), detect_all.(detect_chan{iChan}).(bands{ibands}));
+            else
+                all_events.(bands{ibands}) = UnionIV([], all_events.(bands{ibands}), detect_all.(detect_chan{iChan}).(bands{ibands}).evts);
+            end
+        end
+    end
+end
+
+VL_events.low = all_data.R049_2014_02_07.lg.evts;
+VL_events.high = all_data.R049_2014_02_07.hg.evts;
+VL_events.ctrl_low = all_data.R049_2014_02_07.lg_ran.evts;
+VL_events.ctrl_high = all_data.R049_2014_02_07.hg_ran.evts;
+VL_events.spindles = all_data.R049_2014_02_07.spindles.evts;
+
+    for ibands = 1:length(bands)
+        no_VL_events.(bands{ibands}) = DifferenceIV([],all_events.(bands{ibands}), VL_events.(bands{ibands}));
+    end
+
+    detect_all.VL_events = VL_events;
+    detect_all.no_VL_events = no_VL_events;
+
+    temp = DifferenceIV([], no_VL_events.(bands{ibands}), no_VL_events.(bands{ibands}))
+
+%% define FT trials based on evts
+addpath('D:\Users\mvdmlab\My_Documents\GitHub\fieldtrip')
+ft_defaults
+% low gamma
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_lg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.low, data_remap_FT);
+
+
+% high Gamma
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_hg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.high, data_remap_FT);
+
+
+% low control
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_ctrl_lg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.ctrl_low, data_remap_FT);
+
+
+% high Control
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_ctrl_hg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.ctrl_high, data_remap_FT);
+
+% Spindles
+if isfield(no_VL_events, 'spindles') &&  isempty(no_VL_events.spindles.tstart) ~=1
+    
+    cfg = [];
+    cfg.twin = 0.25;
+    cfg.check = 1; % make a plot of 9 random trials to see the quality
+    data_spindles_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.spindles, data_remap_FT);
+    cfg = [];
+    cfg.freq =[7 12];
+    data_out.spindles.power = AMPX_get_power(cfg, data_spindles_ft, ExpKeys_remap);
+end
+close all
+
+% low gamma
+cfg = [];
+cfg.freq = [40 55];
+data_out.lg.power = AMPX_get_power(cfg, data_lg_ft, ExpKeys_remap);
+
+% if max(max(data_out.lg.power.power_distrib_avg)) > 200
+%     pause
+% end
+% high gamma
+cfg = [];
+cfg.freq = [70 85];
+data_out.hg.power = AMPX_get_power(cfg, data_hg_ft, ExpKeys_remap);
+
+% low random
+cfg = [];
+cfg.freq = [40 55];
+data_out.lg_ran.power = AMPX_get_power(cfg, data_ctrl_lg_ft, ExpKeys_remap);
+
+% high gamma
+cfg = [];
+cfg.freq = [70 85];
+data_out.hg_ran.power = AMPX_get_power(cfg, data_ctrl_hg_ft, ExpKeys_remap);
+
+data_out_no_VL = data_out;
+clear data_out
+ 
+%%addpath('D:\Users\mvdmlab\My_Documents\GitHub\fieldtrip')
+ft_defaults
+% low gamma
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_lg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.low, data_remap_FT);
+
+
+% high Gamma
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_hg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.high, data_remap_FT);
+
+
+% low control
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_ctrl_lg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.ctrl_low, data_remap_FT);
+
+
+% high Control
+cfg = [];
+cfg.twin = 0.05;
+cfg.check = 1; % make a plot of 16 random trials to see the quality
+data_ctrl_hg_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.ctrl_high, data_remap_FT);
+
+% Spindles
+if isfield(no_VL_events, 'spindles') &&  isempty(no_VL_events.spindles.tstart) ~=1
+    
+    cfg = [];
+    cfg.twin = 0.25;
+    cfg.check = 1; % make a plot of 9 random trials to see the quality
+    data_spindles_ft = AMPX_to_FT_trial_split(cfg, no_VL_events.spindles, data_remap_FT);
+    cfg = [];
+    cfg.freq =[7 12];
+    data_out.spindles.power = AMPX_get_power(cfg, data_spindles_ft, ExpKeys_remap);
+end
+close all
+
+% low gamma
+cfg = [];
+cfg.freq = [40 55];
+data_out.lg.power = AMPX_get_power(cfg, data_lg_ft, ExpKeys_remap);
+
+% if max(max(data_out.lg.power.power_distrib_avg)) > 200
+%     pause
+% end
+% high gamma
+cfg = [];
+cfg.freq = [70 85];
+data_out.hg.power = AMPX_get_power(cfg, data_hg_ft, ExpKeys_remap);
+
+% low random
+cfg = [];
+cfg.freq = [40 55];
+data_out.lg_ran.power = AMPX_get_power(cfg, data_ctrl_lg_ft, ExpKeys_remap);
+
+% high gamma
+cfg = [];
+cfg.freq = [70 85];
+data_out.hg_ran.power = AMPX_get_power(cfg, data_ctrl_hg_ft, ExpKeys_remap);
+
+data_out_no_VL = data_out;
+clear data_out
