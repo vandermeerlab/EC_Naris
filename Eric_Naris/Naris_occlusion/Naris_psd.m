@@ -8,10 +8,7 @@ function [ data ] = Naris_psd( cfg )
 %     cfg.tetrodes = tetrode channel array from tts_R0XX file
 %     cfg.df = decimation factor (default is 10)
 %% preprocess the data
-meta_fname = strrep([cfg.fname '-' cfg.naris_type '.dat'],'dat','meta');
-hdr = AMPX_loadMetaFile(meta_fname);
-nbChan = hdr.nChannels;
-data = AMPX_loadData([cfg.fname '-' cfg.naris_type '.dat'], cfg.chan,cfg.df);
+data = AMPX_loadData([cfg.fname '-' cfg.naris_type '.dat'], cfg.tetrodes,cfg.df);
 % if isfield(cfg, 'butt_ord') == 0
 %     cfg.butt_ord = 4; %default butterworth filter order
 % end

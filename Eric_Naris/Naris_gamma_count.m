@@ -1,4 +1,4 @@
-function [cfg, Naris] = Naris_gamma_count()
+function [cfg, Naris] = Naris_gamma_count(cfg_in)
 %%Naris_gamma_detect : detects all the gamma events within a file and
 % returns a trialified structure of all the events required for
 % Naris_gamma_stats which gives all the detected gamma events.
@@ -10,21 +10,22 @@ cfg.fname = mkfile;
 [cfg] = Naris_cfgs(cfg);
 if strcmp(cfg.fname(1:4), 'R053') || strcmp(cfg.fname(1:4), 'R060')
     Naris_exp = {'control', 'pre', 'right', 'left', 'post'};
-    tetrodes = tts(cfg);
-    cfg.tetrodes = tetrodes.channels_array(cfg.chan);
-    cfg.chan = 1;
 else
     Naris_exp = {'control', 'pre', 'ipsi', 'contra', 'post'};
-    cfg.tetrodes = [38 14 9 34];
-    cfg.chan = 4;
-    cfg.tetrodes = cfg.tetrodes(cfg.chan);
-    cfg.chan = 1;
 end
 cfg.df = 10;
-cfg.low_gamma= [45 65];
+cfg.low_gamma= [40 55];
 cfg.high_gamma = [70 85];
 bands = {'low' 'high'};
-
+% find the best channel.  Should always be the same for each recording.  
+data = AMPX_loadData([cfg.fname '-pre.dat'],(1:64), cfg.df);
+LoadExpKeys
+% detect the channel with the highest gamma power.  only do this for the pre to keep it consistent across phases.
+cfg.ch = 1:64;
+ch_idx = cfg.ch(ExpKeys.BadChannels);
+cfg.ch(ch_idx) = [];
+cfg.tetrodes(1) = AMPX_detect_best_chan(cfg, data, ExpKeys);
+cfg.chan = 1; 
 %% load data
 
 
