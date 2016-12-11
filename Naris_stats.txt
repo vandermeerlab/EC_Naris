@@ -1,0 +1,30 @@
+2016-12-10-00
+Gamma Plane Fit Statistics
+
+low Gamma
+mean=57.3095, SD±20.1001; independent samples t-test: t(2526) = 42.1097, p= 4.9488e-294
+
+low Random 
+mean=22.9369, SD±20.9326
+----------------------------------
+2016-12-10-00
+Gamma Plane Fit Statistics
+
+high Gamma
+mean=59.792, SD±13.4928; independent samples t-test: t(1720) = 55.2101, p= 0
+
+high Random 
+mean=17.813, SD±17.7684
+----------------------------------
+
+----------------------------------
+----------------------------------
+2016-12-10-00
+Gamma Event Statistics
+----------------------------------
+
+lg mean length: 0.15 | std: 0.06 | nCycle: 2.83
+hg mean length: 0.09 | std: 0.05 | nCycle: 2.96
+lg_ran mean length: 0.15 | std: 0.06 | nCycle: NaN 
+hg_ran mean length: 0.09 | std: 0.05 | nCycle: NaN 
+spindles mean length: 0.40 | std: 0.02 | nCycle: 0.67
