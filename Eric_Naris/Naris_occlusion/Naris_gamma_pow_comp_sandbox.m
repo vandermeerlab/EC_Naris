@@ -8,10 +8,10 @@ cfg.whitefilter = 'on';
 cfg.marker_ord = {'x', 's', '*'};
 cfg.c_order = linspecer(4);
 cfg.phases = {'pre', 'ipsi', 'contra', 'post'};
-cfg.gamma_freq = [45 60];
+cfg.gamma_freq = [40 55];
 % cfg.gamma_freq = [6 8];
 cfg.notch = [61.5 59.5];
-cfg.plots =0; % turn on if you want to see plots for each subject across sessions and phases.
+cfg.plots =1; % turn on if you want to see plots for each subject across sessions and phases.
 cfg.normalize = 1; % turn this off if you do not want to use the normalized power for the figure 2 plot.
 cfg.dev_order = 1; % the order value for the white noise filter gradient function See ft_preproc_derivative.m
 
@@ -56,7 +56,7 @@ for id = 1:length(ids)
             if cfg.plots ==1
                 hold on
                 plot(freq, 10*log10(data), 'Color', cfg.c_order(nSess,:))
-                xlim([0 100]); ylim([0 40]);
+                xlim([0 100]); ylim([-20 10]);
             end
         end
         if cfg.plots ==1; legend('1', '2', '3', '4'); end
@@ -111,7 +111,7 @@ for iphase = 1:length(cfg.phases)
         end
         disp(num2str(comp_data.(cfg.phases{iphase})(:,id)))
     end
-    legend([h1(1), h2(1), h3(1)], 'R1', 'R2', 'R3', 'orientation', 'horizontal', 'fontsize', 16)
+    legend([h1(1), h2(1), h3(1)], 'R2', 'R4', 'R5', 'orientation', 'horizontal', 'fontsize', 16)
     line_of_best_fit(1,iphase) = mean(nanmean(comp_data.(cfg.phases{iphase}),1));
 end
 
@@ -180,7 +180,7 @@ tx_x = 3.1;
 text(tx_x, .4, '** {\itp}<0.005', 'FontSize', 14)
 text(tx_x, .35, ' *  {\itp}<0.05', 'FontSize', 14)
 % text(tx_x, .3, 'Wilcoxon Sign Rank Test', 'FontSize', 12)
-
+SetFigure([], gcf)
 %%
 
 saveas(F, ['G:\Naris\paper_figs\' 'Naris_comp.fig'])
