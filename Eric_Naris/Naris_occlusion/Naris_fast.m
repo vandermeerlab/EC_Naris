@@ -1,4 +1,4 @@
-function [naris] = Naris_fast(cfg)
+function [naris, cfg] = Naris_fast(cfg)
 %Naris_Fast  Loads the data for s single set of channels (normally a
 %tetrode) and then pltos all four session PSDs in a 2x2 plot as well as a
 %overlapping PSD plot.  Will save different file extensions for different
@@ -10,7 +10,7 @@ function [naris] = Naris_fast(cfg)
 if nargin <1
     cfg = [];
 end
-cfg.data_path = '/Users/jericcarmichael/Documents/Nairs_data'; 
+cfg.data_path = '/Users/jericcarmichael/Documents/Nairs_data';
 %%
 cfg.fname = mkfile;
 [cfg] = Naris_cfgs(cfg);
@@ -23,21 +23,26 @@ cfg.gamma= [40 55; 70 85];
 cfg
 warning off
 
-data = AMPX_loadData([cfg.fname '-pre.dat'],(1:64), cfg.df);
-LoadExpKeys
-% detect the channel with the highest gamma power.  only do this for the pre to keep it consistent across phases.
-cfg.ch = 1:64;
-ch_idx = cfg.ch(ExpKeys.BadChannels);
-cfg.ch(ch_idx) = [];
-cfg.tetrodes(1) = AMPX_detect_best_chan(cfg, data, ExpKeys);
-
-if strcmp(cfg.fname(1:4), 'R053') || strcmp(cfg.fname(1:4), 'R060')
-    cfg.Naris_exp = {'pre', 'right', 'left', 'post'};
-else
-    cfg.Naris_exp = {'pre', 'ipsi', 'contra', 'post'};
+if ~isfield(cfg, 'tetrodes')
+    data = AMPX_loadData([cfg.fname '-pre.dat'],(1:64), cfg.df);
+    LoadExpKeys
+    
+    if strcmp(cfg.fname(1:4), 'R053') || strcmp(cfg.fname(1:4), 'R060')
+        cfg.Naris_exp = {'pre', 'right', 'left', 'post'};
+        cfg.method = 'ratio';
+    else
+        cfg.Naris_exp = {'pre', 'ipsi', 'contra', 'post'};
+        cfg.method = 'raw';
+    end
+    % detect the channel with the highest gamma power.  only do this for the pre to keep it consistent across phases.
+    cfg.ch = 1:64;
+    ch_idx = cfg.ch(ExpKeys.BadChannels);
+    cfg.ch(ch_idx) = [];
+    cfg.tetrodes(1) = AMPX_detect_best_chan(cfg, data, ExpKeys);
+    
+    
+    clear data
 end
-clear data
-
 
 % cfg.notch = 0;
 %%
@@ -91,7 +96,7 @@ if ispc
     saveas(gcf, ['G:\Naris\figures\'  date '\Naris_' cfg.fname '.fig'])
     print(gcf, '-dpng','-r300',['G:\Naris\figures\'  date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '.png'])
     
-  else
+else
     mkdir([cd '/' date])
     saveas(gcf, [cd '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '.fig'])
     print(gcf, '-dpng','-r300',[cd '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '.png'])
@@ -139,30 +144,30 @@ SetFigure([], gcf)
 
 if ispc
     %save data.
-mkdir([cd '\' date])
-saveas(F, [cd '\' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
-print(F, '-dpng','-r300',[cd '\' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
-
-% save it in the all Naris Folder
-mkdir([cfg.data_path '\'  date])
-saveas(F, [cfg.data_path '\' date '\Naris_' cfg.fname '_comp.fig'])
-print(F, '-dpng','-r300',[cfg.data_path '\  date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
-
+    mkdir([cd '\' date])
+    saveas(F, [cd '\' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
+    print(F, '-dpng','-r300',[cd '\' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    
+    % save it in the all Naris Folder
+    mkdir([cfg.data_path '\'  date])
+    saveas(F, [cfg.data_path '\' date '\Naris_' cfg.fname '_comp.fig'])
+    print(F, '-dpng','-r300',[cfg.data_path '\  date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    
 else
-mkdir([cd '/' date])
-saveas(F, [cd '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
-print(F, '-dpng','-r300',[cd '/' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
-
-% save it in the all Naris Folder
-mkdir([cfg.data_path '/'  date])
-saveas(F, [cfg.data_path '/'  date '/Naris_' cfg.fname '_comp.fig'])
-print(F, '-dpng','-r300',[cfg.data_path '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
-
+    mkdir([cd '/' date])
+    saveas(F, [cd '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
+    print(F, '-dpng','-r300',[cd '/' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    
+    % save it in the all Naris Folder
+    mkdir([cfg.data_path '/'  date])
+    saveas(F, [cfg.data_path '/'  date '/Naris_' cfg.fname '_comp.fig'])
+    print(F, '-dpng','-r300',[cfg.data_path '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    
 end
 
 
 %% save the best ones:
-% 
+%
 % saveas(F, ['G:\Naris\paper_figs\' 'Naris_' cfg.fname '_comp.fig'])
 % print(F, '-dpng','-r300',['G:\Naris\paper_figs\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
 

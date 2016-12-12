@@ -20,7 +20,7 @@ for iband = 1:2
     for ievt = nEvts:-1:1
         [x y] = meshgrid(1:2);
         grad = ones(2,2);
-        grad(2,2) = 10;
+        grad(2,2) = 5;
         %     surf(x,y,grad_100)
         [Xq,Yq] = meshgrid(1:1/8:2);
         Vq = interp2(x,y,grad,Xq,Yq);
@@ -48,7 +48,7 @@ end
 for ievt = nEvts:-1:1
         [x y] = meshgrid(1:2);
         grad = ones(2,2);
-        grad(1,1) = 10;
+        grad(1,1) = 5;
         %     surf(x,y,grad_100)
         [Xq,Yq] = meshgrid(1:1/8:2);
         Vq = interp2(x,y,grad,Xq,Yq);
