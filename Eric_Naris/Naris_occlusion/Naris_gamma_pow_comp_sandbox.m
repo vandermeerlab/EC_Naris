@@ -8,8 +8,8 @@ cfg.whitefilter = 'on';
 cfg.marker_ord = {'x', 's', '*'};
 cfg.c_order = linspecer(4);
 cfg.phases = {'pre', 'ipsi', 'contra', 'post'};
-cfg.gamma_freq = [70 85];
-% cfg.gamma_freq = [40 55];
+% cfg.gamma_freq = [70 85];
+cfg.gamma_freq = [40 55];
 % cfg.gamma_freq = [6 8];
 cfg.notch = [61.5 59.5];
 cfg.plots =1; % turn on if you want to see plots for each subject across sessions and phases.
@@ -147,9 +147,9 @@ fprintf(['Contralateral:   Mean ' num2str(mean(contra),'%4.4f') '   SEM +/-' num
 fprintf(['Control:         Mean ' num2str(mean(control),'%4.4f') '   SEM +/-' num2str(std(control)/sqrt(length(control))) '\n'])
 
 fprintf('\nt-test\n')
-fprintf(['Ipsilateral   vs. Contralateral:   df: ' num2str(x_ip_con.df) '   P:' num2str(p_ip_con, '%4.4f') '\n' ])
-fprintf(['Ipsilateral   vs. Control:         df: ' num2str(x_ip_ctr.df) '   P:' num2str(p_ip_ctr, '%4.4f') '\n' ])
-fprintf(['Contralateral vs. Control:         df: ' num2str(x_con_ctr.df) '   P:' num2str(p_con_ctr, '%4.4f') '\n' ])
+fprintf(['Ipsilateral   vs. Contralateral:  df: ' num2str(x_ip_con.df) ' t: ' num2str(x_ip_con.tstat)  '   P:' num2str(p_ip_con, '%4.4f') '\n' ])
+fprintf(['Ipsilateral   vs. Control:        df: ' num2str(x_ip_con.df) ' t: ' num2str(x_ip_ctr.tstat)  '   P:' num2str(p_ip_ctr, '%4.4f') '\n' ])
+fprintf(['Contralateral vs. Control:        df: ' num2str(x_ip_con.df) ' t: ' num2str(x_con_ctr.tstat) '   P:' num2str(p_con_ctr, '%4.4f') '\n' ])
 
 %% update figure
 l_width = 2; 
