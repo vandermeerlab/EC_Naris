@@ -8,6 +8,7 @@ cfg.whitefilter = 'on';
 cfg.marker_ord = {'x', 's', '*'};
 cfg.c_order = linspecer(4);
 cfg.phases = {'pre', 'ipsi', 'contra', 'post'};
+% cfg.gamma_freq = [70 85];
 cfg.gamma_freq = [40 55];
 % cfg.gamma_freq = [6 8];
 cfg.notch = [61.5 59.5];
@@ -38,18 +39,21 @@ end
 
 % get the averages within the desired frequencies
 for id = 1:length(ids)
+    sess_list = fieldnames(all_naris.(ids{id}).data); 
     for iphase = 1:length(cfg.phases)
         if cfg.plots ==1
             figure(id)
             subplot(2,2,iphase)
         end
         for nSess = 1:4
+                phases = fieldnames(all_naris.(ids{id}).data.(sess_list{nSess}));
+
             %find the notch values and replace them with NaNs
-            freq = all_naris.(ids{id}).(cfg.phases{iphase}){nSess}.data{all_naris.(ids{id}).(cfg.phases{iphase}){1,nSess}.cfg.chan}.Frequencies;
+            freq = all_naris.(ids{id}).data.(sess_list{nSess}).(phases{iphase}).data{1}.Frequencies;
             notch_range = find(freq <cfg.notch(1) & freq > cfg.notch(2));
             gamma_range = find(freq >cfg.gamma_freq(1) & freq < cfg.gamma_freq(2));
             % replace the notch frequencies with NaNs and then get the average power within the gamma range in cfg.gamma_freq
-            data = all_naris.(ids{id}).(cfg.phases{iphase}){nSess}.data{all_naris.(ids{id}).(cfg.phases{iphase}){1,nSess}.cfg.chan}.Data;
+            data = all_naris.(ids{id}).data.(sess_list{nSess}).(phases{iphase}).data{1}.Data;
             data(notch_range) = NaN; % replace notch with NaNs
             comp_data.(cfg.phases{iphase})(nSess, id) = nanmean(data(gamma_range));
             disp([(cfg.phases{iphase}) ' Sess# ' num2str(nSess) ' mean: ' num2str(nanmean(data(gamma_range)))])
@@ -111,7 +115,9 @@ for iphase = 1:length(cfg.phases)
         end
         disp(num2str(comp_data.(cfg.phases{iphase})(:,id)))
     end
-    legend([h1(1), h2(1), h3(1)], 'R2', 'R4', 'R5', 'orientation', 'horizontal', 'fontsize', 16)
+%         legend([h1(1), h2(1), h3(1)], 'R2', 'R4', 'R5', 'orientation', 'horizontal', 'fontsize', 16)
+
+    legend([h1(1), h2(1), h3(1)], 'R2', 'R4', 'R5',  'orientation', 'horizontal', 'fontsize', 16)
     line_of_best_fit(1,iphase) = mean(nanmean(comp_data.(cfg.phases{iphase}),1));
 end
 
@@ -164,7 +170,7 @@ if h_ip_ctr == 1;
     plot(ip_con(2,:), ip_con(1,:), '-k','linewidth', l_width);
     plot((ip_con(2,:).*2), ip_con(1,:), '-k','linewidth', l_width)
     plot(1:2, [1.3 1.3], '-k','linewidth', l_width)
-    if p_ip_ctr <0.005; text(1.45, 1.31, '**', 'FontSize', 46); elseif p_ip_ctr >0.0051 && p_ip_ctr <0.05; text(2.5, 1.31, '*', 'FontSize', 46) ;end
+    if p_ip_ctr <0.005; text(1.45, 1.31, '**', 'FontSize', 46); elseif p_ip_ctr >0.0051 && p_ip_ctr <0.05; text(1.5, 1.31, '*', 'FontSize', 46) ;end
 end
 
 if h_con_ctr == 1;
@@ -173,14 +179,14 @@ if h_con_ctr == 1;
     plot(ip_con(2,:), ip_con(1,:), '-k','linewidth', l_width);
     plot((ip_con(2,:).*3), ip_con(1,:), '-k','linewidth', l_width)
     plot(1:2:3, [1.4 1.4], '-k','linewidth', l_width)
-    if p_con_ctr <0.005; text(1.85, 1.31, '**', 'FontSize', 46); elseif p_con_ctr >0.0051 && p_con_ctr <0.05; text(2.5, 1.31, '*', 'FontSize', 46) ;end
+    if p_con_ctr <0.005; text(1.85, 1.31, '**', 'FontSize', 46); elseif p_con_ctr >0.0051 && p_con_ctr <0.05; text(1.9, 1.31, '*', 'FontSize', 46) ;end
     
 end
 tx_x = 3.1;
 text(tx_x, .4, '** {\itp}<0.005', 'FontSize', 14)
 text(tx_x, .35, ' *  {\itp}<0.05', 'FontSize', 14)
 % text(tx_x, .3, 'Wilcoxon Sign Rank Test', 'FontSize', 12)
-SetFigure([], gcf)
+% SetFigure([], gcf)
 %%
 
 saveas(F, ['G:\Naris\paper_figs\' 'Naris_comp.fig'])

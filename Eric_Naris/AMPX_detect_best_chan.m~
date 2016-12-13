@@ -6,7 +6,6 @@ end
 cfg_def.gamma_freq = [40 55];
 % cfg_def.ch = 1:64;
 cfg_def.plot = 1;
-cfg_def.psd = 'white';
 cfg_def.method = 'raw';   % can be "ratio" which uses the best ration between gamma and between 20-30 hz
 cfg_def.contrast = [25 40]; % contrast for the ratio method.
 % [~, ~, cfg_def.ch] = Naris_BestChan_remap(ExpKeys_remap, 'location', 'vl');
@@ -23,11 +22,11 @@ Hs = spectrum.welch('Hann',4096,50); % for 4x decimated data
 for iCh =cfg.ch
     
     fprintf('psd %d\n',iCh);
-    if strcmp(cfg.psd, 'white')
-     data.psd{iCh} = psd(Hs,diff(data.channels{iCh}),'Fs',data.hdr.Fs);
-    else
+%     if strcmp(cfg.method, 'ratio')
+%     data.psd{iCh} = psd(Hs,diff(data.channels{iCh}),'Fs',data.hdr.Fs);
+%     else
         data.psd{iCh} = psd(Hs,data.channels{iCh},'Fs',data.hdr.Fs);
-    end
+%     end
 end
 
 %% housekeeping

@@ -1,4 +1,4 @@
-function [fake_data] = AMPX_Naris_fake_data_power(nEvts)
+function [fake_data] = AMPX_Naris_fake_data_power(cfg, nEvts)
 %% creates a series of power gradents with some noise and a set of random gradients ('"conrol")
 %          Inputs: 
 %           - nEvts: N how many events to generate for lg, hg, lg_ran,
@@ -20,7 +20,7 @@ for iband = 1:2
     for ievt = nEvts:-1:1
         [x y] = meshgrid(1:2);
         grad = ones(2,2);
-        grad(2,2) = 5;
+        grad(2,2) = 10*iband^2;
         %     surf(x,y,grad_100)
         [Xq,Yq] = meshgrid(1:1/8:2);
         Vq = interp2(x,y,grad,Xq,Yq);
@@ -33,7 +33,12 @@ for iband = 1:2
         rng('shuffle')
         ran_id = randperm(1000, 64);
         % create the noisey gradient
-        fake_data.(bands{iband}).power.power_distrib(:,:,ievt) = Vq .* reshape(r(ran_id), 8,8);
+        if cfg.noise
+        fake_data.(bands{iband}).power.power_distrib(:,:,ievt) = Vq .* reshape(r(ran_id), 8,8); 
+        else
+                    fake_data.(bands{iband}).power.power_distrib(:,:,ievt) = Vq; 
+
+        end
         % create a random "control" gradient
         
         r = 2.5+1*randn(10000,1);
@@ -70,7 +75,7 @@ for iband  = 1:length(bands)
     fake_data.(bands{iband}).power.power_distrib_avg = nanmean(fake_data.(bands{iband}).power.power_distrib,3); 
     [m, n, z] = size(fake_data.(bands{iband}).power.power_distrib);
     fake_data.(bands{iband}).power.power_distrib = squeeze(mat2cell(fake_data.(bands{iband}).power.power_distrib, m, n, ones(1,z)))';
-    fprintf(['\n ' bands{iband} '.power.power_distrib nEvents = ' num2str(z) ])
+    fprintf(['\n ' bands{iband} '.power.power_distrib nEvents = ' num2str(z) '\n'])
 %     fake_data.(bands{iband}).power_distrib_avg
 end
 
