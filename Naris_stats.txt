@@ -30,27 +30,27 @@ spindles mean length: 0.40 | std: 0.02 | nCycle: 0.67 | rate: 0.29 | total: 42.0
 ----------------------------------
 2016-12-13-00
 Gamma Power Statistics  LOW
-
-Basic Stats Low
+Basic Stats
 Ipsilateral:     Mean 0.6530   SEM +/-0.052211
 Contralateral:   Mean 0.9398   SEM +/-0.058819
 Control:         Mean 1.0000   SEM +/-0
 
-Wilcoxin Sign Rank test LOw
-Ipsilateral   vs. Contralateral:    P:0.0122
-Ipsilateral   vs. Control:          P:0.0005
-Contralateral vs. Control:          P:0.4238
+t-test
+Ipsilateral   vs. Contralateral:   df: 22   P:0.0014
+Ipsilateral   vs. Control:         df: 22   P:0.0000
+Contralateral vs. Control:         df: 22   P:0.3170
 
-
-Basic Stats High
+Basic Stats
 Ipsilateral:     Mean 0.8382   SEM +/-0.063313
 Contralateral:   Mean 0.9870   SEM +/-0.056934
 Control:         Mean 1.0000   SEM +/-0
 
-Wilcoxin Sign Rank test High
-Ipsilateral   vs. Contralateral:    P:0.0640
-Ipsilateral   vs. Control:          P:0.0342
-Contralateral vs. Control:          P:0.6772
+t-test
+Ipsilateral   vs. Contralateral:   df: 22   P:0.0944
+Ipsilateral   vs. Control:         df: 22   P:0.0180
+Contralateral vs. Control:         df: 22   P:0.8221
+
+
 ----------------------------------
 2016-12-13-00
 Gamma Count Statistics  
