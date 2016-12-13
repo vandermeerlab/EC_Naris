@@ -13,14 +13,13 @@ csc = data;
 % csc.detect_chan = data% ExpKeys.DetectChan;
 %% set params
 % gamma event detection
-cfg_def.f_label = {'low','high', 'low_low_tr', 'high_low_tr'};
+cfg_def.f_label = {'low','high'};
 cfg_def.f_bandpass = {[40 55],[70 85],[40 55], [70 85]}; % frequency bands for event detection
 cfg_def.detect_thr = [0.95 .95 0.90 .90]; % threshold for event detection: 95th percentile of (amplitude) envelope
 cfg_def.detect_method = 'percentile'; %'raw'; % 'raw', 'zscore', 'percentile'
 cfg_def.detect_nCycles = 4; % require minimum number of gamma cycles
 cfg_def.var_thr = 1.5; % def: variance/mean of cycle peaks and throughs must be smaller than this
 cfg_def.detect_epoch = 'all'; % 'all', 'post', 'task'; % set threshold based on what data (for events)
-cfg_def.ampl_min = [0.25e-04 0.2e-04 0.25e-04 0.2e-04]; % all peaks of event must be larger than this (in V)
 
 % artifact, chewing, and spindle detection
 cfg_def.artif_thr =  std(csc.data)*4;   %0.75 * 10^-3; % raw amplitude must be smaller than this (in V) to pass artifact detection
@@ -29,7 +28,7 @@ cfg_def.spindle_thr = 4; % z-score of spindle band envelope must be smaller than
 
 cfg = ProcessConfig2(cfg_def, cfg_in);
 % some flags to enable visualization
-debug = 0; debug2 = 0;
+debug = 1; debug2 = 0;
 
 %% main loop over sessions
 
@@ -62,7 +61,7 @@ csc.data(artif_idx) = NaN;
 cfg_chew = [];
 cfg_chew.epoch = 'all'; % chewing occurs during task mostly
 cfg_chew.minlen = 0.02;
-cfg_chew.filter_cfg.f = [200 300]; % default [200 300]
+cfg_chew.filter_cfg.f = [200 500]; % default [200 300]
 cfg_chew.threshold = cfg.chew_thr; % 0.25 for session 2, 0.5 for session 1?
 cfg_chew.smooth = 0.05; % convolve with Gaussian of this SD
 evt_chew = Julien_DetectEvents(cfg_chew,csc,ExpKeys);
@@ -84,7 +83,7 @@ csc.data(chew_idx) = NaN;
 cfg_spindl = [];
 cfg_spindl.epoch = 'all'; % chewing occurs during task mostly
 cfg_spindl.minlen = 0.005;
-cfg_spindl.filter_cfg.f = [25 30]; % default [25 35]
+cfg_spindl.filter_cfg.f = [7 11]; % default [25 35]
 cfg_spindl.threshold = cfg.spindle_thr; % 0.25 for session 2, 0.5 for session 1?
 cfg_spindl.smooth = 0.05; % convolve with Gaussian of this SD
 evt_spindl = Julien_DetectEvents(cfg_spindl,csc,ExpKeys);

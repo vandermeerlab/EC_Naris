@@ -7,7 +7,6 @@ function [evts, detect_csc, detect_chan] = AMPX_Julien_DetectEvents(data, ExpKey
 
 Remove_ft()
 %% Convert data to TSD and extract the channel for detection from the ExpKeys
-extract_varargin
 
 if exist('detect_chan') ~=1
     detect_chan = Naris_BestChan_remap(ExpKeys, 'location', 'vl');
@@ -328,7 +327,7 @@ for iFreq = 1:length(PARAM_f_label)
     %% store data into collector variable
     evts.(PARAM_f_label{iFreq}) = evt;
     evts.(PARAM_f_label{iFreq}).firstTimestamp = csc.tvec(1);
-    
+    evt_thr.(PARAM_f_label{iFreq}) = evt_thr; 
     %         sess_id_field = regexprep(SessionLIST{iFD},'-','_');
     %         ALL_evt.(this_RatID).(sess_id_field).(PARAM_f_label{iFreq}) = evt;
     %         ALL_evt.(this_RatID).(sess_id_field).fd = fd{iFD};

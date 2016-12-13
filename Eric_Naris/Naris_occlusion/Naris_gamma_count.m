@@ -13,6 +13,7 @@ if strcmp(cfg.fname(1:4), 'R053') || strcmp(cfg.fname(1:4), 'R060')
 else
     Naris_exp = {'control', 'pre', 'ipsi', 'contra', 'post'};
 end
+    cfg.method = 'ratio';
 cfg.df = 10;
 cfg.low_gamma= [40 55];
 cfg.high_gamma = [70 85];
@@ -54,8 +55,7 @@ for iExp = 1:length(Naris_exp)
     if strcmp(Naris_exp{iExp}, 'control') ==1
         [evts.(Naris_exp{iExp}), ~, evt_thr.control] = JK_Julien_DetectEvents_thresholds([], Naris.(Naris_exp{iExp}).data, ExpKeys);
     else
-        cfg_thr= []; cfg_thr.detect_method = 'raw'; cfg_thr.detect_thr = evt_thr.control;
-        [evts.(Naris_exp{iExp}), ~, ~] = JK_Julien_DetectEvents(cfg_thr, Naris.(Naris_exp{iExp}).data, ExpKeys);
+        [evts.(Naris_exp{iExp})] = AMPX_Julien_DetectEvents_naris(Naris.(Naris_exp{iExp}).data, ExpKeys, 'PARAM_detect_method', 'raw','PARAM_detect_thr', evt_thr.control);
         fprintf(['low events:  ' num2str(length(evts.(Naris_exp{iExp}).low.tstart)) '\n']);
         fprintf(['high events: ' num2str(length(evts.(Naris_exp{iExp}).high.tstart)) '\n']);
     end
@@ -83,8 +83,8 @@ for iExp = 2:5
 end
 %% add it to the master gamma events file:
 gamma_current = evts;  clear Naris
-load('G:\Naris\Paper_naris_gamma.mat');
+load('G:\Naris\Paper_naris_gamma_dec.mat');
 naris_gamma.(strrep(cfg.fname, '-', '_')) = gamma_current;
 naris_gamma.(strrep(cfg.fname, '-', '_')).count_L = count_L;
 naris_gamma.(strrep(cfg.fname, '-', '_')).count_H = count_H;
-save('G:\Naris\Paper_naris_gamma.mat', 'naris_gamma', '-v7.3');
+save('G:\Naris\Paper_naris_gamma_dec.mat', 'naris_gamma', '-v7.3');
