@@ -8,8 +8,8 @@ cfg.whitefilter = 'on';
 cfg.marker_ord = {'x', 's', '*'};
 cfg.c_order = linspecer(4);
 cfg.phases = {'pre', 'ipsi', 'contra', 'post'};
-% cfg.gamma_freq = [70 85];
-cfg.gamma_freq = [40 55];
+cfg.gamma_freq = [70 85];
+% cfg.gamma_freq = [40 55];
 % cfg.gamma_freq = [6 8];
 cfg.notch = [61.5 59.5];
 cfg.plots =1; % turn on if you want to see plots for each subject across sessions and phases.
@@ -136,9 +136,9 @@ ipsi = reshape(comp_data.ipsi,1,numel(comp_data.ipsi));
 control = reshape(comp_data.control,1,numel(comp_data.control));
 contra = reshape(comp_data.contra,1,numel(comp_data.contra));
 
-[h_ip_con, p_ip_con,~, x_ip_con] = ttest2(ipsi, contra);
-[h_ip_ctr, p_ip_ctr, ~, x_ip_ctr] = ttest2(ipsi, control);
-[h_con_ctr, p_con_ctr,~,x_con_ctr] = ttest2(contra, control);
+[h_ip_con, p_ip_con,~, x_ip_con] = ttest(ipsi, contra);
+[h_ip_ctr, p_ip_ctr, ~, x_ip_ctr] = ttest(ipsi, control);
+[h_con_ctr, p_con_ctr,~,x_con_ctr] = ttest(contra, control);
 
 %% stats text out
 fprintf('\n\n\nBasic Stats\n')

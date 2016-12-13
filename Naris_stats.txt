@@ -36,19 +36,19 @@ Contralateral:   Mean 0.9398   SEM +/-0.058819
 Control:         Mean 1.0000   SEM +/-0
 
 t-test
-Ipsilateral   vs. Contralateral:  df: 22 t: -3.646   P:0.0014
-Ipsilateral   vs. Control:        df: 22 t: -6.6458   P:0.0000
-Contralateral vs. Control:        df: 22 t: -1.0239   P:0.3170
+Ipsilateral   vs. Contralateral:  df: 11 t: -3.4015   P:0.0059
+Ipsilateral   vs. Control:        df: 11 t: -6.6458   P:0.0000
+Contralateral vs. Control:        df: 11 t: -1.0239   P:0.3279
 
-Basic Stats
+Basic Stats HIGH
 Ipsilateral:     Mean 0.8382   SEM +/-0.063313
 Contralateral:   Mean 0.9870   SEM +/-0.056934
 Control:         Mean 1.0000   SEM +/-0
 
 t-test
-Ipsilateral   vs. Contralateral:  df: 22 t: -1.7482   P:0.0944
-Ipsilateral   vs. Control:        df: 22 t: -2.5558   P:0.0180
-Contralateral vs. Control:        df: 22 t: -0.22757   P:0.8221
+Ipsilateral   vs. Contralateral:  df: 11 t: -1.8626   P:0.0894
+Ipsilateral   vs. Control:        df: 11 t: -2.5558   P:0.0267
+Contralateral vs. Control:        df: 11 t: -0.22757   P:0.8242
 
 
 ----------------------------------
