@@ -52,18 +52,16 @@ Contralateral vs. Control:        df: 22 t: -0.22757   P:0.8221
 
 
 ----------------------------------
-2016-12-13-00
-Gamma Count Statistics  
-Low Gamma
+Low Gamma Event Count    13-Dec-2016 16:02:59
 Basic Stats
 Ipsilateral:     Mean 0.3073   SD +/-0.3564   SEM +/-0.10289
 Contralateral:   Mean 1.3471   SD +/-0.9359   SEM +/-0.27018
 Control:         Mean 1.0000   SD +/-0.0000   SEM +/-0
 
 Paired T-Test
-Ipsilateral   vs. Contralateral:   df(22)   t:-3.5965  P:0.0016
-Ipsilateral   vs. Control:         df(22)   t:-6.7321  P:0.0000
-Contralateral vs. Control:         df(22)   t:1.2848   P:0.2122
+Ipsilateral   vs. Contralateral:   df(11)   t:-4.1163  P:0.0017
+Ipsilateral   vs. Control:         df(11)   t:-6.7321  P:0.0000
+Contralateral vs. Control:         df(11)   t:1.2848   P:0.2253
 
 
 High Gamma
@@ -73,6 +71,6 @@ Contralateral:   Mean 1.1612   SD +/-0.5592   SEM +/-0.16142
 Control:         Mean 1.0000   SD +/-0.0000   SEM +/-0
 
 Paired T-Test
-Ipsilateral   vs. Contralateral:   df(22)   t:-2.1388  P:0.0438
-Ipsilateral   vs. Control:         df(22)   t:-2.0663  P:0.0508
-Contralateral vs. Control:         df(22)   t:0.9984   P:0.3289
+Ipsilateral   vs. Contralateral:   df(11)   t:-2.2318  P:0.0474
+Ipsilateral   vs. Control:         df(11)   t:-2.0663  P:0.0632
+Contralateral vs. Control:         df(11)   t:0.9984   P:0.3395
