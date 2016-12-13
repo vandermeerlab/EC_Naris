@@ -1,4 +1,4 @@
-function [cfg, Naris] = Naris_gamma_count(cfg_in)
+function [cfg, Naris] = Naris_gamma_count(cfg)
 %%Naris_gamma_detect : detects all the gamma events within a file and
 % returns a trialified structure of all the events required for
 % Naris_gamma_stats which gives all the detected gamma events.
@@ -13,19 +13,16 @@ if strcmp(cfg.fname(1:4), 'R053') || strcmp(cfg.fname(1:4), 'R060')
 else
     Naris_exp = {'control', 'pre', 'ipsi', 'contra', 'post'};
 end
-    cfg.method = 'ratio';
 cfg.df = 10;
 cfg.low_gamma= [40 55];
 cfg.high_gamma = [70 85];
-bands = {'low' 'high'};
-% find the best channel.  Should always be the same for each recording.  
-data = AMPX_loadData([cfg.fname '-pre.dat'],(1:64), cfg.df);
-LoadExpKeys
-% detect the channel with the highest gamma power.  only do this for the pre to keep it consistent across phases.
-cfg.ch = 1:64;
-ch_idx = cfg.ch(ExpKeys.BadChannels);
-cfg.ch(ch_idx) = [];
-cfg.tetrodes(1) = AMPX_detect_best_chan(cfg, data, ExpKeys);
+if ~isfield(cfg, 'tetrodes')
+    error('Channel to proces not assigned.  Should be determine during the Naris power processing')
+end
+% this should be carried over from the "Naris_fast" function in the Naris
+% oclussion sandbox
+
+
 cfg.chan = 1; 
 %% load data
 

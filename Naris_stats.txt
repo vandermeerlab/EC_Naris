@@ -16,19 +16,16 @@ mean=59.792, SD±13.4928; independent samples t-test: t(1720) = 55.2101, p= 0
 high Random 
 mean=17.813, SD±17.7684
 ----------------------------------
-
 ----------------------------------
-----------------------------------
-2016-12-10-00
+2016-12-12-00
 Gamma Event Statistics
 ----------------------------------
 
-lg mean length: 0.15 | std: 0.06 | nCycle: 2.83
-hg mean length: 0.09 | std: 0.05 | nCycle: 2.96
-lg_ran mean length: 0.15 | std: 0.06 | nCycle: NaN 
-hg_ran mean length: 0.09 | std: 0.05 | nCycle: NaN 
-spindles mean length: 0.40 | std: 0.02 | nCycle: 0.67
-
+lg mean length: 0.15 | std: 0.06 | nCycle: 2.83 | rate: 11.99 | total: 3236.00
+hg mean length: 0.09 | std: 0.05 | nCycle: 2.96 | rate: 10.86 | total: 2994.00
+lg_ran mean length: 0.15 | std: 0.06 | nCycle: NaN  | rate: 11.99 | total: 3236.00
+hg_ran mean length: 0.09 | std: 0.05 | nCycle: NaN  | rate: 10.86 | total: 2994.00
+spindles mean length: 0.40 | std: 0.02 | nCycle: 0.67 | rate: 0.29 | total: 42.00
 
 ----------------------------------
 2016-12-13-00
@@ -54,3 +51,28 @@ Wilcoxin Sign Rank test High
 Ipsilateral   vs. Contralateral:    P:0.0640
 Ipsilateral   vs. Control:          P:0.0342
 Contralateral vs. Control:          P:0.6772
+----------------------------------
+2016-12-13-00
+Gamma Count Statistics  
+Low Gamma
+Basic Stats
+Ipsilateral:     Mean 0.3073   SD +/-0.3564   SEM +/-0.10289
+Contralateral:   Mean 1.3471   SD +/-0.9359   SEM +/-0.27018
+Control:         Mean 1.0000   SD +/-0.0000   SEM +/-0
+
+Paired T-Test
+Ipsilateral   vs. Contralateral:   df(22)   t:-3.5965  P:0.0016
+Ipsilateral   vs. Control:         df(22)   t:-6.7321  P:0.0000
+Contralateral vs. Control:         df(22)   t:1.2848   P:0.2122
+
+
+High Gamma
+Basic Stats
+Ipsilateral:     Mean 0.6894   SD +/-0.5207   SEM +/-0.15031
+Contralateral:   Mean 1.1612   SD +/-0.5592   SEM +/-0.16142
+Control:         Mean 1.0000   SD +/-0.0000   SEM +/-0
+
+Paired T-Test
+Ipsilateral   vs. Contralateral:   df(22)   t:-2.1388  P:0.0438
+Ipsilateral   vs. Control:         df(22)   t:-2.0663  P:0.0508
+Contralateral vs. Control:         df(22)   t:0.9984   P:0.3289
