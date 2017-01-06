@@ -24,7 +24,9 @@ set(gca,'DefaultTextFontSize',cfg.ft_size)
 if cfg.resize == 1
     set(gcf, 'position', [600 50 560*1.4 420*1.4]);
 end
-H = get(gcf, 'children');
+% H = get(gcf, 'children');
+H = findobj(gcf,'type','axes','-not','Tag','legend','-not','Tag','Colorbar');
+
 for iH = 1:length(H)
     set(H(iH), 'fontsize', cfg.ft_size, 'fontname', cfg_def.font, 'TickDir', 'out', 'fontweight', 'normal')
 end

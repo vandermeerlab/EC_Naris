@@ -8,8 +8,8 @@ cfg.whitefilter = 'on';
 cfg.marker_ord = {'x', 's', '*'};
 cfg.c_order = linspecer(4);
 cfg.phases = {'pre', 'ipsi', 'contra', 'post'};
-cfg.gamma_freq = [70 85];
-% cfg.gamma_freq = [40 55];
+% cfg.gamma_freq = [70 85];
+cfg.gamma_freq = [40 55];
 % cfg.gamma_freq = [6 8];
 cfg.notch = [61.5 59.5];
 cfg.plots =1; % turn on if you want to see plots for each subject across sessions and phases.
@@ -123,7 +123,7 @@ end
 
 plot(1:length(cfg.phases), line_of_best_fit, 'k', 'LineWidth', 1)
 % set the figure properties
-set(gca,'XLim',[0.5 (length(cfg.phases)+0.5)],'XTick',1:1:length(cfg.phases),'XTickLabel',labels,'Ylim', [.25 1.5],'YTick',[], 'FontSize', 20) %'Color', [1 1 1]) ; grid off;
+set(gca,'XLim',[0.5 (length(cfg.phases)+0.5)],'XTick',1:1:length(cfg.phases),'XTickLabel',labels,'Ylim', [.25 1.5],'YTick',[1], 'FontSize', 20) %'Color', [1 1 1]) ; grid off;
 box on
 set(gcf, 'color', [1 1 1])
 ylabh = get(gca,'yLabel');
@@ -183,13 +183,13 @@ if h_con_ctr == 1;
     
 end
 tx_x = 3.1;
-text(tx_x, .4, '** {\itp}<0.005', 'FontSize', 14)
-text(tx_x, .35, ' *  {\itp}<0.05', 'FontSize', 14)
+text(tx_x, .4, '** {\itp}<0.005', 'FontSize', 18)
+text(tx_x, .35, ' *  {\itp}<0.05', 'FontSize', 18)
 % text(tx_x, .3, 'Wilcoxon Sign Rank Test', 'FontSize', 12)
 % SetFigure([], gcf)
 %%
 
-saveas(F, ['Naris_comp_high.fig'])
-print(F, '-dpng','-r300',['Naris_comp_high.png'])
-print(F, '-deps','-r300',['Naris_comp_high.eps'])
+saveas(F, ['Naris_comp_low.fig'])
+print(F, '-dpng','-r300',['Naris_comp_low.png'])
+% print(F, '-deps','-r300',['Naris_comp_high.eps'])
 
