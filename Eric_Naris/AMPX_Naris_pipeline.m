@@ -61,14 +61,17 @@ ExpKeys_remap = AMPX_remap_ExpKeys(ExpKeys, data_remap_AMPX);
 %% detect the channel with the highest gamma power.
 
 if ~strcmp(ExpKeys_remap.Subject, 'R061')
-    ExpKeys_remap.DetectChan = AMPX_detect_best_chan([], data_remap_AMPX, ExpKeys_remap);
+    cfg_detect = [];
+    cfg_detect.ch = 1:64;
+    cfg_detect.psd = 'normal';
+    ExpKeys_remap.DetectChan = AMPX_detect_best_chan(cfg_detect, data_remap_AMPX, ExpKeys_remap);
 end
 
 %% get the events (using Catanese et al. method)
 % if strcmp(fname(1:4), 'R045') % this channel is cleaner for detection but not the most lateral thus is it different than what is used for phase analysis later on.
 % [evts, ~, detect_chan] = AMPX_Julien_DetectEvents(data_remap_AMPX, ExpKeys_remap, 'debug2', 1, 'detect_chan', 48);
 % else
-% [evts, ~, detect_chan] = AMPX_Julien_DetectEvents(data_remap_AMPX, ExpKeys_remap, 'debug2', 1, 'detect_chan', ExpKeys_remap.DetectChan);
+[evts, ~, detect_chan] = AMPX_Julien_DetectEvents(data_remap_AMPX, ExpKeys_remap, 'debug2', 1, 'detect_chan', ExpKeys_remap.DetectChan);
 % end
 
 % for R045 use the 98th percentile instead of the 95th for high gamma
@@ -186,7 +189,7 @@ close all
 
 % low gamma
 cfg = [];
-cfg.freq = [40 55];
+cfg.freq = [45 65];
 data_out.lg.power = AMPX_get_power(cfg, data_lg_ft, ExpKeys_remap);
 
 % if max(max(data_out.lg.power.power_distrib_avg)) > 200
@@ -194,17 +197,17 @@ data_out.lg.power = AMPX_get_power(cfg, data_lg_ft, ExpKeys_remap);
 % end
 % high gamma
 cfg = [];
-cfg.freq = [70 85];
+cfg.freq = [70 90];
 data_out.hg.power = AMPX_get_power(cfg, data_hg_ft, ExpKeys_remap);
 
 % low random
 cfg = [];
-cfg.freq = [40 55];
+cfg.freq = [45 65];
 data_out.lg_ran.power = AMPX_get_power(cfg, data_ctrl_lg_ft, ExpKeys_remap);
 
 % high gamma
 cfg = [];
-cfg.freq = [70 85];
+cfg.freq = [70 90];
 data_out.hg_ran.power = AMPX_get_power(cfg, data_ctrl_hg_ft, ExpKeys_remap);
 
 if strcmp(session_type, 'task')
@@ -214,7 +217,7 @@ if strcmp(session_type, 'task')
         data_out.lg_reward.power.power_avg = [];
     else
         cfg = [];
-        cfg.freq = [40 55];
+        cfg.freq = [45 65];
         data_out.lg_reward.power = AMPX_get_power(cfg, data_low_reward_ft, ExpKeys_remap);
     end
     % high gamma
@@ -223,7 +226,7 @@ if strcmp(session_type, 'task')
         data_out.hg_reward.power.power_avg = [];
     else
         cfg = [];
-        cfg.freq = [70 85];
+        cfg.freq = [70 90];
         data_out.hg_reward.power = AMPX_get_power(cfg, data_high_reward_ft, ExpKeys_remap);
     end
     % low approach
@@ -232,7 +235,7 @@ if strcmp(session_type, 'task')
         data_out.lg_approach.power.power_avg = [];
     else
         cfg = [];
-        cfg.freq = [40 55];
+        cfg.freq = [45 65];
         data_out.lg_approach.power = AMPX_get_power(cfg, data_low_approach_ft, ExpKeys_remap);
     end
     % high gamma
@@ -241,7 +244,7 @@ if strcmp(session_type, 'task')
         data_out.hg_approach.power.power_avg = [];
     else
         cfg = [];
-        cfg.freq = [70 85];
+        cfg.freq = [70 90];
         data_out.hg_approach.power = AMPX_get_power(cfg, data_high_approach_ft, ExpKeys_remap);
     end
 end
@@ -286,7 +289,7 @@ if strcmp(session_type, 'task') ~=1
     cfg.name = fname;
     cfg.session_type = session_type;
     cfg.plot = 1;
-    low gamma
+    %    low gamma
     disp('low gamma')
     cfg.type = 'low';
     data_out.lg.power.smooth.stats = AMPX_get_plane_fitting(cfg,data_out.lg.power);
@@ -317,65 +320,70 @@ if strcmp(session_type, 'task') ~=1
     %% get the phase differences across an entire event
     % low gamma
     cfg =[];
-    cfg.freq = [40 55];
+    cfg.freq = [45 65];
     data_out.lg.phase = AMPX_get_phase(cfg, data_lg_ft, ExpKeys_remap);
     
     
     % high gamma
     cfg =[];
-    cfg.freq = [70 85];
+    cfg.freq = [70 90];
     data_out.hg.phase = AMPX_get_phase(cfg, data_hg_ft, ExpKeys_remap);
     
     % low control
     cfg =[];
-    cfg.freq = [40 55];
+    cfg.freq = [40 65];
     data_out.lg_ran.phase = AMPX_get_phase(cfg, data_ctrl_lg_ft, ExpKeys_remap);
     
     
     % high control
     cfg =[];
-    cfg.freq = [70 85];
+    cfg.freq = [70 90];
     data_out.hg_ran.phase = AMPX_get_phase(cfg, data_ctrl_hg_ft, ExpKeys_remap);
     
     %% extract middle three cycles in each gamma event
     
     % low gamma
-    cfg = []; cfg.freq = [40 55];
-    data_out.lg.cycles = AMPX_get_3cycles(cfg, evts.low, data_remap_AMPX, ExpKeys_remap);
+    cfg_cycles = [];
+    cfg_cycles .freq = [45 65];
+    cfg_cycles .detect_chan = detect_chan;
+    data_out.lg.cycles = AMPX_get_3cycles(cfg_cycles , evts.low, data_remap_AMPX, ExpKeys_remap);
     
     
     % high gamma
-    cfg =[];
-    cfg.freq = [70 85];
-    data_out.hg.cycles = AMPX_get_3cycles(cfg, evts.high, data_remap_AMPX, ExpKeys_remap);
+    cfg_cycles  =[];
+    cfg_cycles .freq = [70 90];
+    cfg_cycles .detect_chan = detect_chan;
+    data_out.hg.cycles = AMPX_get_3cycles(cfg_cycles , evts.high, data_remap_AMPX, ExpKeys_remap);
     
     % low control
-    cfg = [];
-    cfg.freq = [40 55];
-    data_out.lg_ran.cycles = AMPX_get_3cycles(cfg, evts.low, data_remap_AMPX, ExpKeys_remap);
+    cfg_cycles  = [];
+    cfg_cycles .freq = [45 65];
+    cfg_cycles .detect_chan = detect_chan;
+    data_out.lg_ran.cycles = AMPX_get_3cycles(cfg_cycles , evts.low, data_remap_AMPX, ExpKeys_remap);
     
     % high control
-    cfg =[];
-    cfg.freq = [70 85];
-    data_out.hg_ran.cycles = AMPX_get_3cycles(cfg, evts.ctrl_high, data_remap_AMPX, ExpKeys_remap);
+    cfg_cycles  =[];
+    cfg_cycles .freq = [70 90];
+    cfg_cycles .detect_chan = detect_chan;
+    data_out.hg_ran.cycles = AMPX_get_3cycles(cfg_cycles , evts.ctrl_high, data_remap_AMPX, ExpKeys_remap);
     
     %% get the phase for the cycle data
     % low gamma
-    cfg = []; cfg.f= [40 55];
+    cfg = []; cfg.f= [45 65];
     data_out.lg.cycles_phase = AMPX_phase_cycle(cfg, data_out.lg.cycles);
     
     % high gamma
     cfg =[];
-    cfg.f= [70 85];
+    cfg.f= [70 90];
     data_out.hg.cycles_phase = AMPX_phase_cycle(cfg, data_out.hg.cycles);
     
     % low control
-    cfg = []; cfg.f = [40 55];
+    cfg = []; cfg.f = [45 65];
     data_out.lg_ran.cycles_phase = AMPX_phase_cycle(cfg, data_out.lg_ran.cycles);
     
     % high control
     cfg =[];
-    cfg.f = [70 85];
+    cfg.f = [70 90];
     data_out.hg_ran.cycles_phase = AMPX_phase_cycle(cfg, data_out.hg_ran.cycles);
     
     % %% Prepare the data_out struct for kCSD

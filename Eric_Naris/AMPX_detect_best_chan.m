@@ -62,6 +62,7 @@ for iCh = cfg.ch
 end
 
 %% find best channels
+% out.gamma_power = out.gamma_power(cfg.ch); % remove all the empty channels
 [~,sort_idx] = sort(out.gamma_power,'descend');
 if strcmp(cfg.method, 'ratio')
     [~,sort_idx] = sort(out.contrast,'descend');

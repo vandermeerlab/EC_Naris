@@ -19,7 +19,7 @@ csc.detect_chan = detect_chan;
 %% set params
 % gamma event detection
 PARAM_f_label = {'low','high'};%, 'low_98_tr', 'high_98_tr'};
-PARAM_f_bandpass = {[40 55],[70 85],[40 55], [70 85]}; % frequency bands for event detection
+PARAM_f_bandpass = {[45 65],[70 90],[45 65], [70 90]}; % frequency bands for event detection
 PARAM_detect_thr = [0.95 .95 0.98 .98]; % [2.5 2.5 1 1]; %threshold for event detection: 95th percentile of (amplitude) envelope
 PARAM_detect_method = 'percentile'; % 'raw', 'zscore', 'percentile'
 PARAM_detect_nCycles = 4; % require minimum number of gamma cycles

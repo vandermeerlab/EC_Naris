@@ -7,29 +7,18 @@ Session_list = {'R054-2014-10-10', 'R054-2014-10-13', ...
 
 type = 'pre';
 
-load('C:\temp\Naris_all_data_pre_Paper_spin.mat')
+% load('C:\temp\Naris_all_data_pre_Paper_spin_nov.mat')
 %% loop over each session to get: events, power, event_phase, middle cycles, cycle_phase
 
 for iSess =1:length(Session_list)
     disp(['Running Session: ' (strrep(Session_list{iSess},'-', '_'))])
-    fname = strrep((strrep(Session_list{iSess},'-', '_')), '_', '-');
-    cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
-    
-    Remove_ft()
-    if isempty(str2num(fname(end)))==1
-        fname = fname(1:15);
+    if strcmp(type, 'pre') == 1
+        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}],'session_type', type, 'plane_plot', 'yes');
+    elseif strcmp(type, 'post') == 1
+        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+    elseif strcmp(type, 'task') ==1
+        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     end
-    [data, ~] = AMPX_Naris_preprocess([],fname,type);
-    all_data.(strrep(Session_list{iSess},'-', '_')).stats = AMPX_Naris_get_event_stats(all_data.(strrep(Session_list{iSess},'-', '_')), data);
-    clear data
-    
-    %     if strcmp(type, 'pre') == 1
-    %         all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data.(strrep(Session_list{iSess},'-', '_')),'session_type', type, 'plane_plot', 'yes');
-    %     elseif strcmp(type, 'post') == 1
-    %         all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_post.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
-    %     elseif strcmp(type, 'task') ==1
-    %         all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_task.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
-    %     end
 end
 
 %% save the all_data struct
@@ -52,26 +41,14 @@ load('C:\temp\Naris_all_data_post_nov.mat')
 %% loop over each session to get: events, power, event_phase, middle cycles, cycle_phase
 
 for iSess =1:length(Session_list)
-    
     disp(['Running Session: ' (strrep(Session_list{iSess},'-', '_'))])
-    fname = strrep((strrep(Session_list{iSess},'-', '_')), '_', '-');
-    cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
-    
-    Remove_ft()
-    if isempty(str2num(fname(end)))==1
-        fname = fname(1:15);
+    if strcmp(type, 'pre') == 1
+        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+    elseif strcmp(type, 'post') == 1
+        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+    elseif strcmp(type, 'task') ==1
+        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     end
-    [data, ~] = AMPX_Naris_preprocess([],fname,type);
-    all_data_post.(strrep(Session_list{iSess},'-', '_')).stats = AMPX_Naris_get_event_stats(all_data_post.(strrep(Session_list{iSess},'-', '_')), data);
-    clear data
-    %     disp(['Running Session: ' (strrep(Session_list{iSess},'-', '_'))])
-    %     if strcmp(type, 'pre') == 1
-    %         all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data.(strrep(Session_list{iSess},'-', '_')),'session_type', type, 'plane_plot', 'yes');
-    %     elseif strcmp(type, 'post') == 1
-    %         all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_post.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
-    %     elseif strcmp(type, 'task') ==1
-    %         all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_task.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
-    %     end
 end
 
 %% save the all_data struct
@@ -89,19 +66,20 @@ Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',...
     'R045-2014-04-16', 'R045-2014-04-17', 'R045-2014-04-15'};
 type = 'task';
 
-load('C:\temp\Naris_all_data_task_nov.mat')
+load('C:\temp\Naris_all_data_post_nov.mat')
 %% loop over each session to get: events, power, event_phase, middle cycles, cycle_phase
 
 for iSess =1:length(Session_list)
     disp(['Running Session: ' (strrep(Session_list{iSess},'-', '_'))])
     if strcmp(type, 'pre') == 1
-        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data.(strrep(Session_list{iSess},'-', '_')),'session_type', type, 'plane_plot', 'yes');
+        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'post') == 1
-        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_post.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
+        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'task') ==1
-        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_task.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
+        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     end
 end
+
 %% save the all_data struct
 if strcmp(type, 'pre') == 1
     save('C:\temp\Naris_all_data_pre_Paper_spin.mat', 'all_data', '-v7.3')

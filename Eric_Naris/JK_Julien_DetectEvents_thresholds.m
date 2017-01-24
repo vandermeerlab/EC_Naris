@@ -20,7 +20,7 @@ cfg_def.detect_method = 'percentile'; %'raw'; % 'raw', 'zscore', 'percentile'
 cfg_def.detect_nCycles = 4; % require minimum number of gamma cycles
 cfg_def.var_thr = 1.5; % def: variance/mean of cycle peaks and throughs must be smaller than this
 cfg_def.detect_epoch = 'all'; % 'all', 'post', 'task'; % set threshold based on what data (for events)
-
+cfg_def.pause_len = 3; % pause length for debugging.  in seconds. 
 % artifact, chewing, and spindle detection
 cfg_def.artif_thr =  std(csc.data)*4;   %0.75 * 10^-3; % raw amplitude must be smaller than this (in V) to pass artifact detection
 cfg_def.chew_thr = 3; % z-score of chew band envelope must be smaller than this, default 0.25
@@ -50,7 +50,7 @@ evt_artif = ResizeIV(cfg_temp,evt_artif);
 if debug
     cfg_plot.display = 'tsd'; % tsd, iv
     PlotTSDfromIV(cfg_plot,evt_artif,csc);
-    pause; close all;
+    pause(cfg.pause_len); close all;
 end
 
 %% NaN out artifacts to improve reliability of subsequent z-scoring
@@ -73,7 +73,7 @@ evt_chew = ResizeIV(cfg_temp,evt_chew);
 if debug
     cfg_plot.display = 'tsd'; % tsd, iv
     PlotTSDfromIV(cfg_plot,evt_chew,csc);
-    pause; close all;
+     pause(cfg.pause_len); close all;
 end
 
 %% NaN out artifacts to improve reliability of subsequent z-scoring
@@ -95,7 +95,7 @@ evt_spindl = ResizeIV(cfg_temp,evt_spindl);
 if debug
     cfg_plot.display = 'tsd'; % tsd, iv
     PlotTSDfromIV(cfg_plot,evt_spindl,csc);
-    pause; close all;
+     pause(cfg.pause_len); close all;
 end
 
 %% now, loop over frequency bands to process
@@ -125,7 +125,7 @@ for iFreq = 1:length(cfg.f_label)
     if debug
         cfg_plot = []; cfg_plot.display = 'iv'; cfg_plot.mode = 'center'; cfg_plot.width = 0.2;
         PlotTSDfromIV(cfg_plot,evts,csc);
-        pause; close all;
+         pause(cfg.pause_len); close all;
     end
    
    evt_threshold(iFreq) = evt_thr; 

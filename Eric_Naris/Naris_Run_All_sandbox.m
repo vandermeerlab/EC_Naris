@@ -13,11 +13,11 @@ load('C:\temp\Naris_all_data_pre_Paper_spin_nov.mat')
 for iSess =1:length(Session_list)
     disp(['Running Session: ' (strrep(Session_list{iSess},'-', '_'))])
     if strcmp(type, 'pre') == 1
-        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data.(strrep(Session_list{iSess},'-', '_')),'session_type', type, 'plane_plot', 'yes');
+        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}],all_data.(strrep(Session_list{iSess},'-', '_')),'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'post') == 1
-        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_post.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
+        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}],all_data_post.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'task') ==1
-        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}],all_data_task.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
+        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}],all_data_task.(strrep(Session_list{iSess},'-', '_')), 'session_type', type, 'plane_plot', 'yes');
     end
 end
 
@@ -43,11 +43,11 @@ load('C:\temp\Naris_all_data_post_nov.mat')
 for iSess =1:length(Session_list)
     disp(['Running Session: ' (strrep(Session_list{iSess},'-', '_'))])
     if strcmp(type, 'pre') == 1
-        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'post') == 1
-        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'task') ==1
-        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     end
 end
 
@@ -72,11 +72,11 @@ load('C:\temp\Naris_all_data_post_nov.mat')
 for iSess =1:length(Session_list)
     disp(['Running Session: ' (strrep(Session_list{iSess},'-', '_'))])
     if strcmp(type, 'pre') == 1
-        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+        all_data.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'post') == 1
-        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+        all_data_post.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     elseif strcmp(type, 'task') ==1
-        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline_reanalyze([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
+        all_data_task.(strrep(Session_list{iSess},'-', '_')) = AMPX_Naris_pipeline([Session_list{iSess}], 'session_type', type, 'plane_plot', 'yes');
     end
 end
 

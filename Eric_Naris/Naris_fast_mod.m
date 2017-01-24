@@ -11,7 +11,7 @@ cfg_def.chan = 1; % used to pick the first channel in the tetrode. left over fro
 cfg_def.hann_win_fac = 4;
 cfg_def.hann_win = 1024*cfg_def.hann_win_fac;
 cfg_def.whitefilter = 'on';
-cfg_def.gamma= [40 55; 70 85];
+cfg_def.gamma= [45 65; 70 90];
 cfg  = ProcessConfig2(cfg_def, cfg_in);
 
 %%

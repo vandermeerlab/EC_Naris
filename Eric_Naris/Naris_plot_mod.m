@@ -1,4 +1,4 @@
-function [N_fig] = Naris_plot_mod(cfg_in, naris)
+function [N_Fig] = Naris_plot_mod(cfg_in, naris)
 %% Naris_plot: plots the PSDs from each of the four naris phases.
 
 
@@ -25,9 +25,14 @@ for iPhase = 1:length(cfg.Naris_phases)
     for iCh = cfg.chan
         psd_norm = 10*log10(naris.(cfg.Naris_phases{iPhase}).data{iCh}.Data);
         plot(naris.(cfg.Naris_phases{iPhase}).data{iCh}.Frequencies,psd_norm,'color',c_ord(iPhase,:),'LineWidth',4);
-        set(gca,'XLim',[0 100],'XTick',0:10:100,'YLim',[-135 -115],'XTickLabel',{0 10 20 30 40 50 60 70 80 90 100},'YTick',[]); grid on;
+        if strcmp(cfg.fname(1:4), 'R053')
+            set(gca,'XLim',[0 100],'XTick',0:10:100,'YLim',[-20 10],'XTickLabel',{0 10 20 30 40 50 60 70 80 90 100},'YTick',[]); grid on;
+            text(1, 45, num2str(naris.(cfg.Naris_phases{iPhase}).labels{iCh}), 'fontsize', cfg.fontsize)
+        else
+            set(gca,'XLim',[0 100],'XTick',0:10:100,'YLim',[-135 -115],'XTickLabel',{0 10 20 30 40 50 60 70 80 90 100},'YTick',[]); grid on;
+            text(1, 45, naris.(cfg.Naris_phases{iPhase}).labels{iCh}, 'fontsize', cfg.fontsize)
+        end
         %         vline([45 60 75 85], {'g','g','b', 'b'}, {'Gamma50', ' ', 'Gamma80', ' '})
-        text(1, 45, naris.(cfg.Naris_phases{iPhase}).labels{iCh}, 'fontsize', cfg.fontsize)
     end
 end
 y_lim = get(gca, 'ylim');
@@ -46,22 +51,22 @@ SetFigure([], gcf)
 if ispc
     %save data.
     mkdir([cd '\' date])
-    saveas(N_Fig, [cd '\' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
-    print(N_Fig, '-dpng','-r300',[cd '\' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    saveas(N_Fig, [cd '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
+    print(N_Fig, '-dpng','-r300',[cd '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
     
     % save it in the all Naris Folder
     mkdir([cfg.data_path '\'  date])
-    saveas(N_Fig, [cfg.data_path '\' date '\Naris_' cfg.fname '_comp.fig'])
-    print(N_Fig, '-dpng','-r300',[cfg.data_path '\  date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    saveas(N_Fig, [cfg.data_path  '\Naris_' cfg.fname '_comp.fig'])
+    print(N_Fig, '-dpng','-r300',[cfg.data_path '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
     
 else
     mkdir([cd '/' date])
-    saveas(N_Fig, [cd '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
-    print(N_Fig, '-dpng','-r300',[cd '/' date '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    saveas(N_Fig, [cd  '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.fig'])
+    print(N_Fig, '-dpng','-r300',[cd '\Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
     
     % save it in the all Naris Folder
     mkdir([cfg.data_path '/'  date])
-    saveas(N_Fig, [cfg.data_path '/'  date '/Naris_' cfg.fname '_comp.fig'])
-    print(N_Fig, '-dpng','-r300',[cfg.data_path '/' date '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
+    saveas(N_Fig, [cfg.data_path '/Naris_' cfg.fname '_comp.fig'])
+    print(N_Fig, '-dpng','-r300',[cfg.data_path '/Naris_' num2str(cfg.hann_win_fac) '_' cfg.fname '_comp.png'])
     
 end
