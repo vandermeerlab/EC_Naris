@@ -32,8 +32,8 @@ end
 if exist('data', 'var') == 0
     load post_data_art_rem_DC_dec10.mat
 end
-low_gamma_band = [40 55];  % default 40-55
-high_gamma_band = [70 85]; % default 70-85
+low_gamma_band = [45 65];  % default 40-55
+high_gamma_band = [70 90]; % default 70-85
 noise_band = [110 225];   % should be in the chewing/scratching range (110-225)
 noise_band2 = [225 400];  % should be high ~225-400Hz
 channel_of_interest = 1; % which channel is used for detection
@@ -139,12 +139,12 @@ fprintf(['Events detected: ' num2str(length(lg_low_iv.tstart)) '\n'])
 cfg_plot = []; cfg_plot.display = 'iv'; cfg_plot.mode = 'center'; cfg_plot.width = 0.25; %cfg_plot.title = 'mean_filt';
 PlotTSDfromIV(cfg_plot,lg_low_iv,csc);
 %% make some sample plots
-    cfg = [];
-cfg.display = 'iv';
-cfg.mode = 'center';
-cfg.width = 1;
-cfg.target = 'raw';
-PlotTSDfromIV(cfg,iv_spindle,data);
+%     cfg = [];
+% cfg.display = 'iv';
+% cfg.mode = 'center';
+% cfg.width = 1;
+% cfg.target = 'raw';
+% PlotTSDfromIV(cfg,iv_spindle,data);
 %% random time points
 r = sort(randi([1 length(data.tvec)], 1, length(lg_iv.tstart)));
 for ii = length(r):-1:1

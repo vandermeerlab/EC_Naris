@@ -386,9 +386,7 @@ if strcmp(session_type, 'task') ~=1
     cfg.f = [70 90];
     data_out.hg_ran.cycles_phase = AMPX_phase_cycle(cfg, data_out.hg_ran.cycles);
     
-    % %% Prepare the data_out struct for kCSD
-    % cfg = [];
-    % data_out.lg.kCSD = AMPX_cycle_kCSD(cfg, data_out.lg.cycles);
+    
     %% put the events back in the output structure
     % low
     data_out.lg.evts = evts.low;
@@ -403,18 +401,38 @@ if strcmp(session_type, 'task') ~=1
     data_out.hg_ran.evts = evts.ctrl_high;
     
     % spindles
-    data_out.spindles.evts = evts.spindles;
-    
+    if isfield(evts, 'spindles') &&  isempty(evts.spindles.tstart) ~=1
+        
+        data_out.spindles.evts = evts.spindles;
+    end
 end
 if strcmp(session_type, 'task')
     % low feeder
     data_out.lg_reward.evts = evts.feeder.low;
+    
+    % all low events
+    data_out.lg.evts = evts.low;
+    
     % low approach
     data_out.lg_approach.evts = evts.approach.low;
+    
     %high feeder
     data_out.hg_reward.evts = evts.feeder.high;
+    
+    % all high events
+    data_out.hg.evts = evts.high;
+    
     % high approach
     data_out.hg_approach.evts = evts.approach.high;
+    
+    % control events
+    data_out.lg_ran.evts = evts.ctrl_low;
+    data_out.hg_ran.evts = evts.ctrl_high;
+    % spindles
+    if isfield(evts, 'spindles') &&  isempty(evts.spindles.tstart) ~=1
+        
+        data_out.spindles.evts = evts.spindles;
+    end
 end
 
 Remove_ft()

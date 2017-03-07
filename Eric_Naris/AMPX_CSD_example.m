@@ -140,45 +140,45 @@ csd_struct.tvec = filt_tvec;
 
 cfg_out = cfg;
 
-%% triplet example
-% low
-figure(11)
-hold on
-subplot(211)
- rm_chan = all_cycles.ExpKeys.BadChannels;
- temp_data = all_data.(cfg.session_name).lg.cycles.data{cfg.example};
- for iChan = rm_chan
-     temp_data(iChan,:) = NaN; % ensure all the bad channels are NaN'd out before using grid data to interp over them correctly.
- end
- for ii = length(temp_data):-1:1
-     temp = reshape(temp_data(:,ii),8,8);
-     x_known = X(~isnan(temp));  % find NaN values and remove them from the X / Y inputs
-     y_known = Y(~isnan(temp));
-     z_grid = griddata(x_known,y_known,temp(~isnan(temp)),X(isnan(temp)),Y(isnan(temp))); % query for the NaN values in the data to be interpolated.
-     temp(isnan(temp)) = z_grid; % put the interpolated points in for the corresponding NaN values.
-     %     temp = inpaintn(temp); % this is another method but it was more difficult to explain than grid data.
-     temp = reshape(temp,1,64);
-     temp_data(:,ii) = temp;
- end
-for iChan = 1:8
-    hold on
-    plot(temp_data(cfg.chan_to_plot(iChan),:), 'color', c_ord(iChan, :), 'linewidth', 2); % plot the filtered trace
-end
-xlim([1 length(all_data.(cfg.session_name).lg.cycles.data{cfg.example})])
-set(gca, 'ytick', [], 'xtick', [1:(round(length(all_data.(cfg.session_name).lg.cycles.data{cfg.example})/6)):length(all_data.(cfg.session_name).lg.cycles.data{cfg.example}),length(all_data.(cfg.session_name).lg.cycles.data{cfg.example}) ])
-SetFigure([], gcf)
-set(gca, 'xticklabels', {'-3p' '-2p', '-p', '0', 'p', '2p' '3p'}, 'fontname', 'symbol')
-subplot(212)
-xcpots = temp_data(cfg.chan_to_plot,:); %extract the channels on the dorsomedial to ventrolateral diagonal of the probe.  
-elec_sep_mm = sqrt(0.2^2+0.2^2); % probe spacing for a NeuroNexus A8x8 probe wii .2mm regular spacing between sites
-% CSD
-[csd, CSDelecinds] = csd5pt(xcpots, elec_sep_mm);
-imagesc(1:length(csd), CSDelecinds, csd)
-if cfg.save == 1
-    saveas(gcf, [cfg.save_dir 'Fig4_low_trip'], 'epsc')
-
-    saveas(gcf, [cfg.save_dir 'Fig4_A'], 'fig')
-end
+% %% triplet example
+% % low
+% figure(11)
+% hold on
+% subplot(211)
+%  rm_chan = ExpKeys.BadChannels;
+%  temp_data = all_data.(cfg.session_name).lg.cycles.data{cfg.example};
+%  for iChan = rm_chan
+%      temp_data(iChan,:) = NaN; % ensure all the bad channels are NaN'd out before using grid data to interp over them correctly.
+%  end
+%  for ii = length(temp_data):-1:1
+%      temp = reshape(temp_data(:,ii),8,8);
+%      x_known = X(~isnan(temp));  % find NaN values and remove them from the X / Y inputs
+%      y_known = Y(~isnan(temp));
+%      z_grid = griddata(x_known,y_known,temp(~isnan(temp)),X(isnan(temp)),Y(isnan(temp))); % query for the NaN values in the data to be interpolated.
+%      temp(isnan(temp)) = z_grid; % put the interpolated points in for the corresponding NaN values.
+%      %     temp = inpaintn(temp); % this is another method but it was more difficult to explain than grid data.
+%      temp = reshape(temp,1,64);
+%      temp_data(:,ii) = temp;
+%  end
+% for iChan = 1:8
+%     hold on
+%     plot(temp_data(cfg.chan_to_plot(iChan),:), 'color', c_ord(iChan, :), 'linewidth', 2); % plot the filtered trace
+% end
+% xlim([1 length(all_data.(cfg.session_name).lg.cycles.data{cfg.example})])
+% set(gca, 'ytick', [], 'xtick', [1:(round(length(all_data.(cfg.session_name).lg.cycles.data{cfg.example})/6)):length(all_data.(cfg.session_name).lg.cycles.data{cfg.example}),length(all_data.(cfg.session_name).lg.cycles.data{cfg.example}) ])
+% SetFigure([], gcf)
+% set(gca, 'xticklabels', {'-3p' '-2p', '-p', '0', 'p', '2p' '3p'}, 'fontname', 'symbol')
+% subplot(212)
+% xcpots = temp_data(cfg.chan_to_plot,:); %extract the channels on the dorsomedial to ventrolateral diagonal of the probe.  
+% elec_sep_mm = sqrt(0.2^2+0.2^2); % probe spacing for a NeuroNexus A8x8 probe wii .2mm regular spacing between sites
+% % CSD
+% [csd, CSDelecinds] = csd5pt(xcpots, elec_sep_mm);
+% imagesc(1:length(csd), CSDelecinds, csd)
+% if cfg.save == 1
+% %     saveas(gcf, [cfg.save_dir 'Fig4_low_trip'], 'epsc')
+% 
+%     saveas(gcf, [cfg.save_dir 'Fig4_A'], 'fig')
+% end
 %%
 close()
 %     cfg.example = randi([1 length(all_data.(cfg.session_name).hg.cycles.data)],1,1);

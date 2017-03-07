@@ -105,7 +105,7 @@ hax1 = gca;
 SetFigure([], gcf)
 if exist('save_fig')
     saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B', 'epsc')
-    print(gcf, 'D:\DATA\Paper_figs\Fig2_B.fig')
+    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B', 'fig')
 end
 hf1 = figure(22);
 set(gcf,'PaperPositionMode','auto')
@@ -123,7 +123,7 @@ hax11 = gca;
 SetFigure([], gcf)
 if exist('save_fig')
     saveas(gcf, 'D:\DATA\Paper_figs\Fig2_C', 'epsc')
-    print(gcf, 'D:\DATA\Paper_figs\Fig2_C.fig')
+    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_C', 'fig')
 end
 hf1 = figure(22);
 s2 = subplot(5,2,[2 4]);
@@ -222,5 +222,5 @@ maximize
 %% export part 1
 if exist('save_fig')
     saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B_C_new', 'epsc')
-    print(gcf, 'D:\DATA\Paper_figs\Fig2_B_C_new.fig')
+    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B_C_new', 'fig')
 end

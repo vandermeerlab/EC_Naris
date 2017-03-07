@@ -7,7 +7,7 @@ Session_list = {'R054-2014-10-10', 'R054-2014-10-13', ...
 
 type = 'pre';
 
-load('C:\temp\Naris_all_data_pre_Paper_spin_nov.mat')
+% load('C:\temp\Naris_all_data_pre_Paper_spin_nov.mat')
 %% loop over each session to get: events, power, event_phase, middle cycles, cycle_phase
 
 for iSess =1:length(Session_list)
@@ -37,7 +37,7 @@ Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',... % 'R
     'R045-2014-04-16', 'R045-2014-04-17', 'R045-2014-04-15'};
 
 type = 'post';
-load('C:\temp\Naris_all_data_post_nov.mat')
+% load('C:\temp\Naris_all_data_post_nov.mat')
 %% loop over each session to get: events, power, event_phase, middle cycles, cycle_phase
 
 for iSess =1:length(Session_list)
@@ -66,7 +66,6 @@ Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',...
     'R045-2014-04-16', 'R045-2014-04-17', 'R045-2014-04-15'};
 type = 'task';
 
-load('C:\temp\Naris_all_data_post_nov.mat')
 %% loop over each session to get: events, power, event_phase, middle cycles, cycle_phase
 
 for iSess =1:length(Session_list)

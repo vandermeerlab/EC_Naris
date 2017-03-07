@@ -23,7 +23,7 @@ cfg_def.mrk_off = -5;
 cfg_def.raw_plot_boost = 300;
 cfg_def.line_end  =.5;
 cfg_def.width = .5;
-cfg_def.width_all_chan = 2; % 1s window for plotting all the channels. 
+cfg_def.width_all_chan = 1; % 1s window for plotting all the channels. 
 cfg_def.ft_size = 20;
 cfg_def.linewidth = 2;
 cfg_def.example = []; % a nice one is 29
@@ -244,27 +244,26 @@ for isub = 1:4
     set(t1, 'position', [t_pos(1)-3, t_pos(2), t_pos(3)])
 end
 
-
 %% plot all the raw traces organized from Vl to DM for a high and low gamma event.  
 clear data data_tsd
-fname = strrep(cfg.session_name2, '_', '-');
+fname = strrep(cfg.session_name, '_', '-');
 cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
 fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
-%%
+
 LoadExpKeys
 data_remap_AMPX = AMPX_remap_sites(data, ExpKeys);
-
 
 data_tsd = AMPX2tsd(data_remap_AMPX);
 % clear data
 clear data_remap_AMPX
 
+
 %% Collect the an example event
 % gather the event times
+
 evts = all_data_pre.(fname).lg.evts;
 evts_hg = all_data_pre.(fname).hg.evts;
-
 
 ctr = mean(cat(2,evts.tstart(cfg.example2),evts.tend(cfg.example2)),2);
 bg_tstart_idx = nearest_idx3(ctr-cfg.width_all_chan,data_tsd.tvec);
@@ -272,14 +271,6 @@ bg_tend_idx = nearest_idx3(ctr+cfg.width_all_chan,data_tsd.tvec);
 
 lg_iv_in_window = restrict(evts, data_tsd.tvec(bg_tstart_idx), data_tsd.tvec(bg_tend_idx));
 hg_iv_in_window = restrict( evts_hg, data_tsd.tvec(bg_tstart_idx), data_tsd.tvec(bg_tend_idx));
-
-% if length(hg_iv_in_window.tstart)<2 || length(lg_iv_in_window.tstart) <2
-%         cfg.example2 = randi([1 length(evts.tstart)],1,1);
-% end
-
-% filer between 4-100
-% cfg_filter.f = [2 200];
-% data_temp = FilterLFP(cfg_filter, data_temp);
 
 % set up the distance matrix
 [x,y] = meshgrid(1.4:-.2:0);
@@ -295,8 +286,8 @@ chans = flipud(dist_order(:,1));
 % close(400)
 h4 = figure(400); 
 set(gcf,'PaperPositionMode','auto')
-set(gcf, 'position', [36 70 1824 936])
-
+% set(gcf, 'position', [36 70 1824 936])
+subplot(1,4,1:3)
 y_lim = ([min(min(data_tsd.data(chans(1),bg_tstart_idx:bg_tend_idx))), max(max(data_tsd.data(chans(end),bg_tstart_idx:bg_tend_idx)+((cfg.raw_plot_boost)*64)))]);
 x_lim = ([data_tsd.tvec(bg_tstart_idx), data_tsd.tvec(bg_tend_idx)]);
 
@@ -324,13 +315,103 @@ ylim(y_lim);
 xlim(x_lim);
 title(num2str(cfg.example2))
 xlabel('time (s)'); 
-ylabel('electrode location')
+ylabel('R_1 electrode location')
 % set(gca, 'xtick', [x_lim(1) mean(x_lim)  x_lim(2)], 'xticklabel', [ -1 0 1 ]);
-set(gca, 'xtick', [x_lim(1) (mean(x_lim)- (mean(x_lim)-x_lim(1))/2) mean(x_lim) (mean(x_lim)+ (x_lim(2) -mean(x_lim))/2) x_lim(2)], 'xticklabel', [-2 -1 0 1 2]);
+set(gca, 'xtick', [x_lim(1) (mean(x_lim)- (mean(x_lim)-x_lim(1))/2) mean(x_lim) (mean(x_lim)+ (x_lim(2) -mean(x_lim))/2) x_lim(2)]);
+if cfg.width_all_chan == 2
+    set(gca, 'xtick', [x_lim(1) (mean(x_lim)- (mean(x_lim)-x_lim(1))/2) mean(x_lim) (mean(x_lim)+ (x_lim(2) -mean(x_lim))/2) x_lim(2)],  'xticklabel', [-2 -1 0 1 2])
+elseif cfg.width_all_chan == 1;
+    set(gca, 'xtick', [x_lim(1)  mean(x_lim) x_lim(2)],  'xticklabel', [-1 0 1])
+end
 set(gca, 'ytick', [y_lim(1) y_lim(2)], 'yticklabel', {'DM' ,'VL'});
 SetFigure([], gcf)
 set(gcf,'PaperPositionMode','auto')
-set(gcf, 'position', [36 70 1824 936])
+% set(gcf, 'position', [36 70 1824 936])
+
+
+%% plot all the raw traces organized from Vl to DM for a high and low gamma event.  
+clear data data_tsd
+fname = strrep(cfg.session_name2, '_', '-');
+cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+fname = strrep(cfg.session_name2, '-', '_');
+[data, ~] = AMPX_Naris_preprocess([],fname,'pre');
+
+LoadExpKeys
+data_remap_AMPX = AMPX_remap_sites(data, ExpKeys);
+
+
+data_tsd = AMPX2tsd(data_remap_AMPX);
+% clear data
+clear data_remap_AMPX
+%%
+
+evts = all_data_pre.(fname).lg.evts;
+evts_hg = all_data_pre.(fname).hg.evts;
+
+% cfg.example2 = randi([1 length(evts.tstart)],1,1);
+
+ctr = mean(cat(2,evts.tstart(cfg.example3),evts.tend(cfg.example3)),2);
+bg_tstart_idx = nearest_idx3(ctr-cfg.width_all_chan,data_tsd.tvec);
+bg_tend_idx = nearest_idx3(ctr+cfg.width_all_chan,data_tsd.tvec);
+
+lg_iv_in_window = restrict(evts, data_tsd.tvec(bg_tstart_idx), data_tsd.tvec(bg_tend_idx));
+hg_iv_in_window = restrict( evts_hg, data_tsd.tvec(bg_tstart_idx), data_tsd.tvec(bg_tend_idx));
+
+% set up the distance matrix
+[x,y] = meshgrid(1.4:-.2:0);
+
+dist = sqrt(((x).^2) +((y).^2));
+dist_1D = reshape(dist,1,64);
+labels = data_tsd.label;
+dist_chan = [labels; dist_1D ]';
+dist_order = sortrows(dist_chan,2); % sort the channels in orer based on distance from the 
+chans = flipud(dist_order(:,1));
+
+% setup the plot for all the channels during a low & high event within 1s.
+% close(400)
+h5 = figure(500); 
+set(gcf,'PaperPositionMode','auto')
+% set(gcf, 'position', [36 70 1824 936])
+subplot(1,4,1:3)
+y_lim = ([min(min(data_tsd.data(chans(1),bg_tstart_idx:bg_tend_idx))), max(max(data_tsd.data(chans(end),bg_tstart_idx:bg_tend_idx)+((cfg.raw_plot_boost)*64)))]);
+x_lim = ([data_tsd.tvec(bg_tstart_idx), data_tsd.tvec(bg_tend_idx)]);
+
+% put a rectangle around the example event
+color.blue = double([158,202,225])/255; 
+color.green = double([168,221,181])/255; 
+for iRec = 1:length(lg_iv_in_window.tstart) % put a rectanlge around any low gamma events within the window
+    rectangle('position',[lg_iv_in_window.tstart(iRec), y_lim(1)+1, lg_iv_in_window.tend(iRec) - lg_iv_in_window.tstart(iRec), (y_lim(end) - y_lim(1))], 'facecolor', color.blue, 'edgecolor', color.blue);
+end
+for iRec = 1:length(hg_iv_in_window.tstart) % put a rectanlge around any high gamma events within the window
+    rectangle('position',[hg_iv_in_window.tstart(iRec), y_lim(1)+1, hg_iv_in_window.tend(iRec) - hg_iv_in_window.tstart(iRec), (y_lim(end) - y_lim(1))], 'facecolor', color.green, 'edgecolor', color.green);
+end
+% plot the raw traces for the four corner sites
+loop_num = 1; 
+hold on
+for iChan = 1:length(chans)
+    if ~ismember(chans(iChan), ExpKeys.BadChannels)
+        plot(data_tsd.tvec(bg_tstart_idx:bg_tend_idx), data_tsd.data(chans(iChan),bg_tstart_idx:bg_tend_idx)+((cfg.raw_plot_boost)*loop_num), 'k')
+    end
+        loop_num = loop_num+1;
+
+end
+% clean up
+ylim(y_lim);
+xlim(x_lim);
+title(num2str(cfg.example3))
+xlabel('time (s)'); 
+ylabel('R_2 electrode location')
+% set(gca, 'xtick', [x_lim(1) mean(x_lim)  x_lim(2)], 'xticklabel', [ -1 0 1 ]);
+set(gca, 'xtick', [x_lim(1) (mean(x_lim)- (mean(x_lim)-x_lim(1))/2) mean(x_lim) (mean(x_lim)+ (x_lim(2) -mean(x_lim))/2) x_lim(2)]);
+if cfg.width_all_chan == 2
+    set(gca, 'xtick', [x_lim(1) (mean(x_lim)- (mean(x_lim)-x_lim(1))/2) mean(x_lim) (mean(x_lim)+ (x_lim(2) -mean(x_lim))/2) x_lim(2)],  'xticklabel', [-2 -1 0 1 2])
+elseif cfg.width_all_chan == 1;
+    set(gca, 'xtick', [x_lim(1)  mean(x_lim) x_lim(2)],  'xticklabel', [-1 0 1])
+end
+set(gca, 'ytick', [y_lim(1) y_lim(2)], 'yticklabel', {'DM' ,'VL'});
+SetFigure([], gcf)
+% set(gcf,'PaperPositionMode','auto')
+% set(gcf, 'position', [36 70 1824 936])
 
 %% save the figures
 % save the cfg.example
@@ -339,8 +420,10 @@ saveas(h1, 'D:\DATA\Paper_figs\Fig1_C_D', 'epsc')
 saveas(h2, 'D:\DATA\Paper_figs\Fig1_E', 'epsc')
 
 saveas(h3, 'D:\DATA\Paper_figs\FigS1', 'epsc')
-
-saveas(h4, 'D:\DATA\Paper_figs\FigS2', 'epsc')
+set(gcf, 'renderer', 'opengl') % switch renderer to avoid eps issue where colour bars come out black. 
+saveas(h4, 'D:\DATA\Paper_figs\FigS2a', 'epsc')
+saveas(h5, 'D:\DATA\Paper_figs\FigS2b', 'epsc')
+set(gcf, 'renderer', 'painters')
 
 saveas(h1, 'D:\DATA\Paper_figs\Fig1_C_D', 'fig')
 
@@ -348,4 +431,5 @@ saveas(h2, 'D:\DATA\Paper_figs\Fig1_E', 'fig')
 
 saveas(h3, 'D:\DATA\Paper_figs\FigS1', 'fig')
 
-saveas(h4, 'D:\DATA\Paper_figs\FigS2', 'fig')
+saveas(h4, 'D:\DATA\Paper_figs\FigS2a', 'fig')
+saveas(h5, 'D:\DATA\Paper_figs\FigS2b', 'fig')

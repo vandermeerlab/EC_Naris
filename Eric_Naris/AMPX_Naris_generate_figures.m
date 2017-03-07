@@ -37,7 +37,7 @@ function AMPX_Naris_generate_figures()
 
 %% load the pre and post data:
 
-load('C:\temp\Naris_all_data_pre_Paper_spin.mat');
+load('C:\temp\Naris_all_data_pre_Paper_spin_Jan.mat');
 
 load('C:\temp\Naris_all_data_post.mat');
 
@@ -45,7 +45,8 @@ load('C:\temp\Naris_all_data_post.mat');
 %% Figure 1: individual gamma example (raw and heat map), averages across all rats
 cfg_fig1 = [];
 cfg_fig1.example =63;
-cfg_fig1.example2 = 16; 
+cfg_fig1.example2 = 42; 
+cfg_fig1.example3 = 109;
 cfg_fig1.session_name = 'R061_2014_09_26';
 cfg_fig1.session_name2 = 'R054_2014_10_10'; %'R061_2014_09_26';
 cfg_fig1.version = 1; % this means it will exclude the corrupted sessions for R054 and just use sessions from  2016_10_10 and 2016_10_13;
@@ -54,7 +55,9 @@ AMPX_Naris_fig_1_example(cfg_fig1, all_data, all_data_post);
 
 %% Figure 2: 2x2x2 task
 load('C:\temp\Naris_all_data_task.mat');
-all_data_task = rmfield(all_data_task, 'R045_2014_04_18');
+if isfield(all_data_task, 'R045_2014_04_18')
+    all_data_task = rmfield(all_data_task, 'R045_2014_04_18');
+end
 AMPX_Naris_fig_2_task(all_data, all_data_task, 'save_fig', 'yes');
 
 
@@ -86,3 +89,7 @@ AMPX_Naris_pow_dist_corr(all_data)
 %% get the spindle plot
 cfg = [];
 AMPX_Naris_PCA(cfg, all_data)
+
+
+%% get all event stats
+stats = Naris_get_all_event_stats(all_data,all_data_post, all_data_task)

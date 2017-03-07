@@ -20,11 +20,16 @@ for iband = 1:length(bands)
 end
 
 for iband = 1:length(bands)
-    for iEvt = 1:length(data_out.(bands{iband}).evts.tstart)
-        events_sess.(bands{iband}).evt_length = [events_sess.(bands{iband}).evt_length, data_out.(bands{iband}).evts.tend(iEvt) - data_out.(bands{iband}).evts.tstart(iEvt)];
-        if ~isempty(data_out.(bands{iband}).evts.usr)
-            events_sess.(bands{iband}).evt_cycles = [ events_sess.(bands{iband}).evt_cycles, data_out.(bands{iband}).evts.usr.nCycles(iEvt)];
+    if isfield(data_out, bands{iband})
+        for iEvt = 1:length(data_out.(bands{iband}).evts.tstart)
+            events_sess.(bands{iband}).evt_length = [events_sess.(bands{iband}).evt_length, data_out.(bands{iband}).evts.tend(iEvt) - data_out.(bands{iband}).evts.tstart(iEvt)];
+            if ~isempty(data_out.(bands{iband}).evts.usr)
+                events_sess.(bands{iband}).evt_cycles = [ events_sess.(bands{iband}).evt_cycles, data_out.(bands{iband}).evts.usr.nCycles(iEvt)];
+            end
         end
+    else
+        events_sess.(bands{iband}).evt_cycles =[];
+        events_sess.(bands{iband}).evt_length = [];
     end
 end
 %% get the average length of the events
@@ -39,7 +44,7 @@ for iband = 1:length(bands)
         ' std: ' num2str(stats.(bands{iband}).event.std_len) ...
         ' nCycle: ' num2str(stats.(bands{iband}).event.avg_nCycle) '\n']);
     stats.(bands{iband}).all.length = events_sess.(bands{iband}).evt_length;
-    if ~isempty(data_out.(bands{iband}).evts.usr)
+    if isfield(data_out, bands{iband}) ~=1 || ~isempty(data_out.(bands{iband}).evts.usr) 
         stats.(bands{iband}).all.nCycles = events_sess.(bands{iband}).evt_cycles;
     end
 end
