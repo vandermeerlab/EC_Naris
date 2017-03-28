@@ -37,7 +37,12 @@ if exist([session_type '_data_preprocess_filt.mat'],'file')==0 % check to see if
         else
             channels_to_load = 1:64;
         end
-        data = AMPX_loadData([file_name '.dat'],channels_to_load,cfg.dec_fac); % note decimation factor of 10
+        switch session_type
+            case {'pre','post'}
+                data = AMPX_loadData([file_name '-' session_type '.dat'],channels_to_load,cfg.dec_fac); % note decimation factor of 10
+            case 'task'
+                data = AMPX_loadData([file_name '.dat'],channels_to_load,cfg.dec_fac); % note decimation factor of 10
+        end
         disp('Data loading complete');
         save([session_type '_data_preprocess.mat'], 'data', '-v7.3')
     end
