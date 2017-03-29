@@ -3,7 +3,6 @@ function [cfg, Naris_stats_out, naris_gamma] = Naris_gamma_count_mod(cfg_in)
 % returns a trialified structure of all the events required for
 % Naris_gamma_stats which gives all the detected gamma events.
 %
-global PARAMS
 cfg_def.fname = mkfile;
 cfg_def.df = 10;
 cfg_def.low_gamma= [45 65];
@@ -116,11 +115,9 @@ Naris_stats_out.high.rate = count_H;
 gamma_current = evts;  clear Naris
 if exist(PARAMS.naris_gamma_inter_dir,'file') ~=2 % check to make sure on exists
     naris_gamma = [];    %if not make an empty file. 
-    
-else
-    load(PARAMS.naris_gamma_inter_dir);
 end
+load(PARAMS.naris_gamma_data_inter_dir);
 naris_gamma.(strrep(cfg.fname, '-', '_')) = gamma_current;
 naris_gamma.(strrep(cfg.fname, '-', '_')).count_L = count_L;
 naris_gamma.(strrep(cfg.fname, '-', '_')).count_H = count_H;
-save(PARAMS.naris_gamma_inter_dir, 'naris_gamma', '-v7.3');
+save(PARAMS.naris_gamma_data_inter_dir, 'naris_gamma', '-v7.3');

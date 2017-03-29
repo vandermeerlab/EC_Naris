@@ -12,7 +12,7 @@ function stats_out = Naris_count_stats(cfg_in, all_stats)
 %           and low gamma across all subjects.  
 % 
 % EC - 2017-01-19
-global PARAMS
+
 cfg_def = [];
 
 cfg = ProcessConfig2(cfg_def, cfg_in)
@@ -239,7 +239,7 @@ end
 
 SetFigure([], gcf)
 %% save figure
-saveas(F, [PARAMS.naris_figures_dir '\Naris_gamma_count.fig'])
+saveas(F, [PARAMS.naris_figure_dir '\Naris_gamma_count.fig'])
 print(F, '-depsc','-r300',[PARAMS.naris_figures_dir 'Naris_gamma_count.eps'])
 print(F, '-dpng','-r300',[PARAMS.naris_figures_dir 'Naris_gamma_count.png'])
 
