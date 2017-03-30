@@ -15,7 +15,7 @@ function [h1, h2] = AMPX_Naris_fig_3_phase(cfg_in, pre, post, varargin)
 
 %% set up parameters
 extract_varargin
-
+global PARAMS
 cfg_def = [];
 
 cfg = ProcessConfig2(cfg_in, cfg_def);
@@ -152,9 +152,9 @@ end
 
 %% export the figures
 if exist('save_fig')
-    saveas(h1, 'D:\DATA\Paper_figs\Fig3_A', 'fig')
-    saveas(h1, 'D:\DATA\Paper_figs\Fig3_A', 'epsc')
+    saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig3_A'], 'fig')
+    saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig3_A'], 'epsc')
     
-    saveas(h2, 'D:\DATA\Paper_figs\Fig3_B', 'fig')
-    saveas(h2, 'D:\DATA\Paper_figs\Fig3_B', 'epsc')
+    saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig3_B'], 'fig')
+    saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig3_B'], 'epsc')
 end

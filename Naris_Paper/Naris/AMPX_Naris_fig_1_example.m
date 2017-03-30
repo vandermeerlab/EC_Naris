@@ -16,7 +16,7 @@ function [h1, h_sub2] = AMPX_Naris_fig_1_example(cfg_in, all_data_pre, all_data_
 % EC - 2016-05-23
 
 %% set up parameters
-
+global PARAMS
 cfg_def = [];
 cfg_def.markers = {'#', '+', 'x', 'o'};
 cfg_def.mrk_off = -5;
@@ -36,7 +36,7 @@ if isempty(cfg.session_name) ==1
 end
 %% load the data file to get the raw traces
 fname = strrep(cfg.session_name, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
 fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 %%
@@ -247,7 +247,7 @@ end
 %% plot all the raw traces organized from Vl to DM for a high and low gamma event.  
 clear data data_tsd
 fname = strrep(cfg.session_name, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
 fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 
@@ -332,7 +332,7 @@ set(gcf,'PaperPositionMode','auto')
 %% plot all the raw traces organized from Vl to DM for a high and low gamma event.  
 clear data data_tsd
 fname = strrep(cfg.session_name2, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
 fname = strrep(cfg.session_name2, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 
@@ -415,21 +415,21 @@ SetFigure([], gcf)
 
 %% save the figures
 % save the cfg.example
-saveas(h1, 'D:\DATA\Paper_figs\Fig1_C_D', 'epsc')
+saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig1_C_D'], 'epsc')
 
-saveas(h2, 'D:\DATA\Paper_figs\Fig1_E', 'epsc')
+saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig1_E'], 'epsc')
 
-saveas(h3, 'D:\DATA\Paper_figs\FigS1', 'epsc')
+saveas(h3, [PARAMS.figure_dir '\Paper_figs\FigS1'], 'epsc')
 set(gcf, 'renderer', 'opengl') % switch renderer to avoid eps issue where colour bars come out black. 
-saveas(h4, 'D:\DATA\Paper_figs\FigS2a', 'epsc')
-saveas(h5, 'D:\DATA\Paper_figs\FigS2b', 'epsc')
+saveas(h4, [PARAMS.figure_dir '\Paper_figs\FigS2a'], 'epsc')
+saveas(h5, [PARAMS.figure_dir '\Paper_figs\FigS2b'], 'epsc')
 set(gcf, 'renderer', 'painters')
 
-saveas(h1, 'D:\DATA\Paper_figs\Fig1_C_D', 'fig')
+saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig1_C_D'], 'fig')
 
-saveas(h2, 'D:\DATA\Paper_figs\Fig1_E', 'fig')
+saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig1_E'], 'fig')
 
-saveas(h3, 'D:\DATA\Paper_figs\FigS1', 'fig')
+saveas(h3, [PARAMS.figure_dir '\Paper_figs\FigS1'], 'fig')
 
-saveas(h4, 'D:\DATA\Paper_figs\FigS2a', 'fig')
-saveas(h5, 'D:\DATA\Paper_figs\FigS2b', 'fig')
+saveas(h4, [PARAMS.figure_dir '\Paper_figs\FigS2a'], 'fig')
+saveas(h5, [PARAMS.figure_dir '\Paper_figs\FigS2b'], 'fig')

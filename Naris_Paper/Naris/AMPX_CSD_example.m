@@ -5,23 +5,23 @@ function [csd_struct, cfg_out] = AMPX_CSD_example(cfg_in, all_data)
 %
 
 % Computes the 5ptCSD for a single event using the methods from
-
+global PARAMS
 %% Preamble
 cfg_def.buffer = 0.5;
 cfg_def.f = [40 55]; % default filter range in the low gamma band.
 cfg_def.c_axis_for_scale = 1; % sets the colorbar axis to reflect the values relative to a full 180 degree phase inversion between two pairs. 
 cfg_def.save = 1; % save the figures. 
-cfg_def.save_dir = 'D:\DATA\Paper_figs\'; % where they are saved
+cfg_def.save_dir = PARAMS.figure_dir; % where they are saved
 cfg = ProcessConfig2(cfg_in, cfg_def);
 
 ExpKeys = all_data.(cfg.session_name).lg.cycles.ExpKeys;
 evts = all_data.(cfg.session_name).lg.evts;
 
-
+addpath(genpath(PARAMS.CSD_dir))
 
 %% extract the data for the example gamma event
 fname = strrep(cfg.session_name, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
 fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 data_remap_AMPX = AMPX_remap_sites(data, ExpKeys);
@@ -128,9 +128,9 @@ SetFigure(cfg_set_fig, gcf) % sets the figure properties to mvdmlab default.
 
 %% save the figure
 if cfg.save == 1
-    saveas(gcf, [cfg.save_dir 'Fig4_A'], 'epsc')
+    saveas(gcf, [PARAMS.figure_dir '\Fig4_A'], 'epsc')
 
-    saveas(gcf, [cfg.save_dir 'Fig4_A'], 'fig')
+    saveas(gcf, [PARAMS.figure_dir '\Fig4_A'], 'fig')
 end
 % output the CSD and config structs
 csd_struct.CSDelecinds = CSDelecinds; 

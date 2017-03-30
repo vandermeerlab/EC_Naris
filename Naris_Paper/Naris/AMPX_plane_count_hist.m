@@ -1,4 +1,6 @@
 function [h2, stats] = AMPX_plane_count_hist(plane_stats, plane_stats_control, band_name)
+
+global PARAMS
 a = plane_stats.rsq2;
 b = plane_stats_control.rsq2;
 
@@ -38,7 +40,7 @@ fprintf([ band_name ' Gamma\nmean=' num2str(nanmean(a)) ', SD±' num2str(nanstd(a
 fprintf(['\n' band_name ' Random \nmean=' num2str(nanmean(b)) ', SD±' num2str(nanstd(b)) '\n'])
 fprintf('----------------------------------\n\n')
 
-fileID = fopen('G:\Naris\Naris_stats_plane.txt','a');
+fileID = fopen([PARAMS.stats_dir '\Naris_stats_plane.txt','w+');
 fprintf(fileID,datestr(date, 'yyyy-mm-dd-HH'))
 fprintf(fileID, ['\nGamma Plane Fit Statistics'])
 fprintf(fileID, '\n\n\n----------------------------------\n')
@@ -48,5 +50,5 @@ fprintf(fileID,['\n' band_name ' Gamma\nmean=' num2str(nanmean(a)) ', SD±' num2s
 fprintf(fileID,['\n' band_name ' Random \nmean=' num2str(nanmean(b)) ', SD±' num2str(nanstd(b)) '\n'])
 fprintf(fileID, '----------------------------------\n\n')
 fclose(fileID);
-type 'G:\Naris\Naris_stats_plane.txt'
-copyfile('G:\Naris\Naris_stats_plane.txt','D:\Users\mvdmlab\My_Documents\GitHub\Papers_EC\vStr_Naris', 'f')
+% type 'G:\Naris\Naris_stats_plane.txt'
+% copyfile('G:\Naris\Naris_stats_plane.txt','D:\Users\mvdmlab\My_Documents\GitHub\Papers_EC\vStr_Naris', 'f')
