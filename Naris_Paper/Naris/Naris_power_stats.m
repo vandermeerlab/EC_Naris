@@ -2,6 +2,7 @@ function stats_out = Naris_power_stats(cfg_in, all_naris)
 
 
 %% Initialize
+global PARAMS
 cfg_def.marker_ord = {'x', '+', '*'};
 cfg_def.c_order = linspecer(4);
 cfg_def.c_order_pow = [ 255 66 0; 102 25 255; 64 155 191]/255; % specific colours to match the histology markers in figure 1a
@@ -142,7 +143,7 @@ contra = reshape(comp_data.contra,1,numel(comp_data.contra));
 
 %% stats text out
 fprintf('\n\n\nBasic Stats\n')
-fileID = fopen(['G:\Naris\Naris_stats_power_' cfg.band '.txt'],'w');
+fileID = fopen([PARAMS.stats_dir '\Naris_stats_power_' cfg.band '.txt'],'w');
 fprintf(fileID, ['\n_________________' cfg.band '________________________\n'])
 fprintf(fileID,['Ipsilateral:     Mean ' num2str(mean(ipsi), '%4.4f') '   SEM +/-' num2str(std(ipsi)/sqrt(length(ipsi))) '\n'])
 fprintf(fileID,['Contralateral:   Mean ' num2str(mean(contra),'%4.4f') '   SEM +/-' num2str(std(contra)/sqrt(length(contra))) '\n'])
@@ -154,7 +155,7 @@ fprintf(fileID,['Ipsilateral   vs. Control:        df: ' num2str(x_ip_con.df) ' 
 fprintf(fileID,['Contralateral vs. Control:        df: ' num2str(x_ip_con.df) ' t: ' num2str(x_con_ctr.tstat) '   P:' num2str(p_con_ctr, '%4.4f') '\n' ])
 
 fclose(fileID);
-copyfile(['G:\Naris\Naris_stats_power_' cfg.band '.txt'],'D:\Users\mvdmlab\My_Documents\GitHub\Papers_EC\vStr_Naris', 'f')
+% copyfile(['G:\Naris\Naris_stats_power_' cfg.band '.txt'],'D:\Users\mvdmlab\My_Documents\GitHub\Papers_EC\vStr_Naris', 'f')
 %% update figure
 l_width = 1;
 sig_font = 30; 
@@ -197,9 +198,9 @@ set(gca,'XLim',[0.5 (length(cfg.phases)+0.5)],'XTick',1:1:length(cfg.phases),'XT
 SetFigure([], gcf)
 %%
 
-saveas(F, ['G:\Naris\paper_figs\' 'Naris_gamma_power_' cfg.band '.fig'])
-print(F, '-depsc','-r300',['G:\Naris\paper_figs\Naris_gamma_power_' cfg.band '.eps'])
-print(F, '-dpng','-r300',['G:\Naris\paper_figs\Naris_gamma_power_' cfg.band '.png'])
+saveas(F, [PARAMS.naris_figures_dir '\Naris_gamma_power_' cfg.band '.fig'])
+print(F, '-depsc','-r300',[PARAMS.naris_figures_dir '\Naris_gamma_power_' cfg.band '.eps'])
+print(F, '-dpng','-r300',[PARAMS.naris_figures_dir '\Naris_gamma_power_' cfg.band '.png'])
 % print(F, '-deps','-r300',['Naris_comp_high.eps'])
 
 %% collect the stats

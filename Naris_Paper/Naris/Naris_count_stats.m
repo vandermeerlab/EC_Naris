@@ -12,7 +12,7 @@ function stats_out = Naris_count_stats(cfg_in, all_stats)
 %           and low gamma across all subjects.  
 % 
 % EC - 2017-01-19
-
+global PARAMS
 cfg_def = [];
 
 cfg = ProcessConfig2(cfg_def, cfg_in)
@@ -95,7 +95,7 @@ high_control_SEM = std(high_gamma.control)/(sqrt(length(high_gamma.control)));
 %% print the stats 
 
 % low gamma
-fileID = fopen('G:\Naris\Naris_stats_count.txt','w');
+fileID = fopen([PARAMS.stats_dir '\Naris_stats_count.txt'],'w+');
 fprintf(fileID, ['\n_________________________________________\n'])
 fprintf(fileID,datestr(date, 'yyyy-mm-dd-HH'))
 fprintf(fileID, ['\nLow Gamma Event Count \n'])
@@ -134,8 +134,8 @@ else
 end
 
 fclose(fileID);
-type 'G:\Naris\Naris_stats_count.txt'
-copyfile('G:\Naris\Naris_stats_count.txt','D:\Users\mvdmlab\My_Documents\GitHub\Papers_EC\vStr_Naris', 'f')
+% type 'G:\Naris\Naris_stats_count.txt'
+% copyfile('G:\Naris\Naris_stats_count.txt','D:\Users\mvdmlab\My_Documents\GitHub\Papers_EC\vStr_Naris', 'f')
 
 %% plot some stuff
 F = figure(200);
@@ -239,9 +239,9 @@ end
 
 SetFigure([], gcf)
 %% save figure
-saveas(F, ['G:\Naris\paper_figs\' 'Naris_gamma_count.fig'])
-print(F, '-depsc','-r300',['G:\Naris\paper_figs\Naris_gamma_count.eps'])
-print(F, '-dpng','-r300',['G:\Naris\paper_figs\Naris_gamma_count.png'])
+saveas(F, [PARAMS.naris_figures_dir '\Naris_gamma_count.fig'])
+print(F, '-depsc','-r300',[PARAMS.naris_figures_dir 'Naris_gamma_count.eps'])
+print(F, '-dpng','-r300',[PARAMS.naris_figures_dir 'Naris_gamma_count.png'])
 
 %% collect stats
 stats_out.low.count = low_gamma;

@@ -1,21 +1,22 @@
 %% Naris occlusion paper sandbox
 
 rat_list = {'R102', 'R104', 'R053'};
-%
-% rat_list = {'R073'};
+
+%% parameters
+global PARAMS
+PARAMS = [];
+% PARAMS.data_dir = '/Users/jericcarmichael/Documents/Nairs_data'; % raw data files
+PARAMS.data_dir = 'G:\JK_recordings\Naris'; % raw data dir, should have folders for each rat with subfolders for each session
+PARAMS.stats_dir = 'G:\Naris\temp'; % where to save the .txt output from the count and power statistics. 
+PARAMS.naris_gamma_inter_dir = 'G:\Naris\temp\Paper_naris_gamma_dec.mat'; %path for storing intermediate naris gamma outputs
+PARAMS.naris_figures_dir = 'G:\Naris\temp\paper_figs'; % where to store figures
+
 for iRat = 1:length(rat_list)
+    cfg.data_path = PARAMS.data_dir;
     if isunix
-        cfg.data_path = '/Users/jericcarmichael/Documents/Nairs_data';
         cd([cfg.data_path '/' rat_list{iRat}])
     else
-        if strcmp(rat_list{iRat}, 'R053')
-            cfg.data_path = 'G:\Naris';
-        elseif strcmp(rat_list{iRat}, 'R073') || strcmp(rat_list{iRat}, 'R075')
-            cfg.data_path = 'G:\Multisite';
-        else
-            cfg.data_path = 'G:\JK_recordings\Naris';
-        end
-        cd([cfg.data_path '/' rat_list{iRat}])
+        cd([cfg.data_path '\' rat_list{iRat}])
     end
     % find all the folders in the dir and then list only the data folders.
     files = dir();
