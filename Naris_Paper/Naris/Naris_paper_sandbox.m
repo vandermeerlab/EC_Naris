@@ -5,20 +5,20 @@
 Session_list = {'R054-2014-10-10', 'R054-2014-10-13', ...
     'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',... % 'R049-2014-02-09',...
     'R061-2014-09-26', 'R061-2014-09-27', 'R061-2014-09-28',...
-    'R045-2014-04-16', 'R045-2014-04-17', 'R045-2014-04-18'};
+    'R045-2014-04-15','R045-2014-04-16', 'R045-2014-04-17'};
 
 type = 'pre';
 
 %% list of sessions to analyze
 % Session_list = {'R054-2014-10-11', 'R054-2014-10-12', 'R054-2014-10-13', 'R054-2014-10-14'};
 Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',... % 'R049-2014-02-09',...
-    'R045-2014-04-16', 'R045-2014-04-17', 'R045-2014-04-18'};
+    'R045-2014-04-15','R045-2014-04-16', 'R045-2014-04-17'};
 
 type = 'post';
 
 %% get the task sessions
 Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',...
-    'R045-2014-04-16', 'R045-2014-04-17', 'R045-2014-04-18'};
+    'R045-2014-04-15','R045-2014-04-16', 'R045-2014-04-17'};
 type = 'task';
 %% loop over each session to get: events, power, event_phase, middle cycles, cycle_phase
 
@@ -80,7 +80,7 @@ for iSess = 1:length(Session_list)
 end
 
 %% Generate example kCSD 'session_name', 'R061_2014_09_26' same as the one in Fig1 C/D
-cfg_kCSD = [];
-cfg_kCSD.R = 0.2;
-AMPX_kCSD_example(cfg_kCSD,all_data_pre)
+% cfg_kCSD = [];
+% cfg_kCSD.R = 0.2;
+% AMPX_kCSD_example(cfg_kCSD,all_data_pre)
 
