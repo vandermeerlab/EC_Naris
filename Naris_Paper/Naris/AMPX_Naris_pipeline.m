@@ -28,12 +28,13 @@ function [data_out] = AMPX_Naris_pipeline(fname, varargin)
 
 
 %% Preamble
+global PARAMS
 extract_varargin
 
 %%
 % CD to the data directory.  Should contain all the .dat, .ini, and .meta
 fname = strrep(fname, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+cd([ PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
 % mkpre % gets the file name for the pre record.
 %%  determine session type
 % is this sessions a pre, task or post record?
@@ -117,7 +118,7 @@ evts.ctrl_high.firstTimestamp = evts.high.firstTimestamp;
 % PlotTSDfromIV(cfg_plot, evts.high, match_tsd)
 
 %% define FT trials based on evts
-addpath('D:\Users\mvdmlab\My_Documents\GitHub\fieldtrip')
+addpath(PARAMS.ft_path)
 ft_defaults
 % low gamma
 cfg = [];

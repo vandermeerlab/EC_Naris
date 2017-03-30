@@ -1,5 +1,11 @@
 %% Naris Paper Sandbox
 
+global PARAMS
+PARAMS.ft_dir ='D:\Users\mvdmlab\My_Documents\GitHub\fieldtrip';  %fieldtrip toolbox building using 
+PARAMS.data_dir = 'D:\DATA\';      % where the raw data has been stored. 
+PARAMS.stats_dir = 'D:\DATA\temp'; % where you would like the stats output to be saved as a .txt
+PARAMS.CSD_dir = 'D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\BuzCSD';  % keep this separate until generating CSDs later on.  
+PARAMS.figure_dir = 'D:\DATA\temp'; % where you would like the figures to be saved
 %% list of sessions to analyze
 % Session_list = {'R054-2014-10-11', 'R054-2014-10-12', 'R054-2014-10-13', 'R054-2014-10-14'};
 Session_list = {'R054-2014-10-10', 'R054-2014-10-13', ...
