@@ -37,7 +37,7 @@ end
 %% load the data file to get the raw traces
 fname = strrep(cfg.session_name, '_', '-');
 cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
-fname = strrep(cfg.session_name, '-', '_');
+% fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 %%
 LoadExpKeys
@@ -248,7 +248,7 @@ end
 clear data data_tsd
 fname = strrep(cfg.session_name, '_', '-');
 cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
-fname = strrep(cfg.session_name, '-', '_');
+% fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 
 LoadExpKeys
@@ -333,7 +333,7 @@ set(gcf,'PaperPositionMode','auto')
 clear data data_tsd
 fname = strrep(cfg.session_name2, '_', '-');
 cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
-fname = strrep(cfg.session_name2, '-', '_');
+% fname = strrep(cfg.session_name2, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 
 LoadExpKeys

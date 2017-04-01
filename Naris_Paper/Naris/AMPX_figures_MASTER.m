@@ -1,4 +1,4 @@
-function AMPX_Naris_generate_figures()
+function AMPX_generate_figures()
 %% AMPX_Naris_generate_figures: Generates all the figures used in Carmichael et al. 
 %   
 %     - figure 1
@@ -34,12 +34,12 @@ function AMPX_Naris_generate_figures()
 %
 %
 %EC - 2016-06-14
-
+global PARAMS
 %% load the pre and post data:
 
-load('C:\temp\Naris_all_data_pre_Paper_spin_Jan.mat');
+load([PARAMS.intermediate_dir '\Naris_all_data_pre.mat']);
 
-load('C:\temp\Naris_all_data_post.mat');
+load([PARAMS.intermediate_dir '\Naris_all_data_post.mat']);
 
 
 %% Figure 1: individual gamma example (raw and heat map), averages across all rats
@@ -54,7 +54,7 @@ AMPX_Naris_fig_1_example(cfg_fig1, all_data, all_data_post);
 
 
 %% Figure 2: 2x2x2 task
-load('C:\temp\Naris_all_data_task.mat');
+load([PARAMS.intermediate_dir '\Naris_all_data_task.mat']);
 if isfield(all_data_task, 'R045_2014_04_18')
     all_data_task = rmfield(all_data_task, 'R045_2014_04_18');
 end
@@ -71,17 +71,6 @@ cfg_csd.example = cfg_fig1.example;
 cfg_csd.session_name = cfg_fig1.session_name;
 AMPX_Naris_fig_4_CSD(cfg_csd, all_data)
 
-%% Figure 5: Naris experiments: 
-
-% three example sessions "white" PSDs. 
-
-
-% Power comparisons
-
-
-% Gamma count bar graph
-% AMPX_Naris_fig_5_gamma_count()
-
 %% figure 6 power by distance
 
 AMPX_Naris_pow_dist_corr(all_data)
@@ -92,4 +81,4 @@ AMPX_Naris_PCA(cfg, all_data)
 
 
 %% get all event stats
-stats = Naris_get_all_event_stats(all_data,all_data_post, all_data_task)
+stats = Naris_get_all_event_stats(all_data,all_data_post, all_data_task);

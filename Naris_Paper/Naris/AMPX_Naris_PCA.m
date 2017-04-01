@@ -4,7 +4,7 @@ function AMPX_Naris_PCA(cfg, all_data)
 %   - data is the original data structure.  Just used for naming and
 %   finding the correct directories.
 
-
+global PARAMS
 %% collect all power distributions from all sessions per rat.
 bands = {'lg', 'hg', 'lg_ran', 'hg_ran', 'spindles'};
 
@@ -118,9 +118,9 @@ grid on
 l = legend({'Low', 'High', 'Rand l', 'Rand h', 'HVS'}, 'location', 'NorthEast');
 a=get(l,'children');
 set(a([1:3:end]),'markersize',8); % This line changes the legend marker size
-saveas(gcf, ['C:\Users\mvdmlab\Dropbox\Naris_figures_sept\PCA'], 'png')
-saveas(gcf, ['C:\Users\mvdmlab\Dropbox\Naris_figures_sept\PCA'], 'fig')
-saveas(gcf, ['C:\Users\mvdmlab\Dropbox\Naris_figures_sept\PCA'], 'epsc')
+saveas(gcf, [PARAMS.figure_dir '\PCA'], 'png')
+saveas(gcf, [PARAMS.figure_dir '\PCA'], 'fig')
+saveas(gcf, [PARAMS.figure_dir '\PCA'], 'epsc')
 %% quick check for gradients
 for iT = 1:9^2
     subplot(9,9,iT)
