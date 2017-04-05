@@ -10,7 +10,7 @@ addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Naris
 % add basic functions and circ_stats toolbox
 addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Basic_functions'))
 
-%% parameters
+%% set up parameters
 global PARAMS
 PARAMS = [];
 % PARAMS.data_dir = '/Users/jericcarmichael/Documents/Nairs_data'; % raw data files
