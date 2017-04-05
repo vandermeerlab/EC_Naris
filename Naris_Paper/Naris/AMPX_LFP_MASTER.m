@@ -1,39 +1,42 @@
-%% Naris Paper Sandbox
-%setup basic analyses paths
-restoredefaultpath
-% to vandermeerlab codebase shared functions and AMPX loading functions
-addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared'))
-addpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared\io\amplipex') % give the loading AMPX functions
-% add the Naris paper functions "Naris_paper" on github
-addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Naris'))
-% add basic functions and circ_stats toolbox
-addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Basic_functions'))
+%% Master script for the LFP mapping analyses in Carmichael et al.
+%
+% set up global parameters for directories to be used during analyses
+%
+% edit to correspond to the setup on the machine you want to run this
+% on
+%
+% NOTE need to update location of naris code once added to papers repo
+clear all; pack
 
-% set up global parameters for directories to be used during analyses.  
 global PARAMS
-PARAMS.ft_dir ='D:\Users\mvdmlab\My_Documents\GitHub\fieldtrip';  %fieldtrip toolbox building using 
-PARAMS.data_dir = 'D:\DATA\';      % where the raw data has been stored. 
+PARAMS.github_dir = 'D:\My_Documents\GitHub\';
+PARAMS.ft_dir = cat(2,PARAMS.github_dir,'fieldtrip'); % fieldtrip toolbox
+PARAMS.data_dir = 'D:\DATA\'; % where the raw data has been stored 
 PARAMS.stats_dir = 'D:\DATA\temp'; % where you would like the stats output to be saved as a .txt
-PARAMS.CSD_dir = 'D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\BuzCSD';  % keep this separate until generating CSDs later on.  
+PARAMS.CSD_dir = cat(2,PARAMS.github_dir,'EC_Naris\Naris_Paper\BuzCSD'); % keep this separate until generating CSDs later on  
 PARAMS.figure_dir = 'D:\DATA\temp'; % where you would like the figures to be saved
-PARAMS.intermediate_dir  = 'D:\DATA\temp'; %where to put intermediate files. 
-%% list of sessions to analyze
-% Session_list = {'R054-2014-10-11', 'R054-2014-10-12', 'R054-2014-10-13', 'R054-2014-10-14'};
+PARAMS.intermediate_dir  = 'D:\DATA\temp'; % where to put intermediate files 
+
+% set up path
+restoredefaultpath
+addpath(genpath(cat(2,PARAMS.github_dir,'vandermeerlab\code-matlab\shared')));
+addpath(genpath(cat(2,PARAMS.github_dir,'EC_Naris\Naris_Paper\Basic_functions')));
+addpath(genpath(cat(2,PARAMS.github_dir,'EC_Naris\Naris_Paper\Naris')));
+
+%% first, generate subsampled, organized files from raw data
+% list of sessions to analyze (pre epoch, run this and then the 'loop...' and 'save...' cells below)
 Session_list = {'R054-2014-10-10', 'R054-2014-10-13', ...
-    'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',... % 'R049-2014-02-09',...
+    'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',...
     'R061-2014-09-26', 'R061-2014-09-27', 'R061-2014-09-28',...
     'R045-2014-04-15','R045-2014-04-16', 'R045-2014-04-17'};
-
 type = 'pre';
 
-%% list of sessions to analyze
-% Session_list = {'R054-2014-10-11', 'R054-2014-10-12', 'R054-2014-10-13', 'R054-2014-10-14'};
-Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',... % 'R049-2014-02-09',...
+%% list of sessions to analyze (post epoch, run this and then the 'loop...' and 'save...' cells below)
+Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',...
     'R045-2014-04-15','R045-2014-04-16', 'R045-2014-04-17'};
-
 type = 'post';
 
-%% get the task sessions
+%% list of sessions to analyze (task epoch, run this and then the 'loop...' and 'save...' cells below)
 Session_list = {'R049-2014-02-07', 'R049-2014-02-08', 'R049-2014-02-10',...
     'R045-2014-04-15','R045-2014-04-16', 'R045-2014-04-17'};
 type = 'task';
