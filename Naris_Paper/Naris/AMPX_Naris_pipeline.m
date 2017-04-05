@@ -118,7 +118,7 @@ evts.ctrl_high.firstTimestamp = evts.high.firstTimestamp;
 % PlotTSDfromIV(cfg_plot, evts.high, match_tsd)
 
 %% define FT trials based on evts
-addpath(PARAMS.ft_path)
+addpath(PARAMS.ft_dir)
 ft_defaults
 % low gamma
 cfg = [];
