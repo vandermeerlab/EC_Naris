@@ -2,7 +2,7 @@ Carmichael et al. (submitted)
 
 Code used for processing, analysis and visualization in Carmichael, Gmaz, van der Meer (submitted),"Gamma oscillations in the rat ventral striatum originate in the piriform cortex" ([preprint]())
 
-Makes extensive use of the [vandermeerlab codebase](https://github.com/vandermeerlab/vandermeerlab/commit/245431a4e0e1f6f344dcc27cd82c561ba9664aef); please use this commit if you want to be sure you are using the same code that generated the results in the paper.
+Makes extensive use of the [vandermeerlab codebase](https://github.com/vandermeerlab/vandermeerlab/); please use [this commit](https://github.com/vandermeerlab/vandermeerlab/commit/245431a4e0e1f6f344dcc27cd82c561ba9664aef) if you want to be sure you are using the same code that generated the results in the paper.
 
 To obtain the data, e-mail mvdm at dartmouth dot edu to get access to the lab server. Then, to reproduce the results in the paper, run the following:
 
