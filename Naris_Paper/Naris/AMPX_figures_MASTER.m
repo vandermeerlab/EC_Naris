@@ -55,9 +55,6 @@ AMPX_Naris_fig_1_example(cfg_fig1, all_data, all_data_post);
 
 %% Figure 2: 2x2x2 task
 load([PARAMS.intermediate_dir '\Naris_all_data_task.mat']);
-if isfield(all_data_task, 'R045_2014_04_18')
-    all_data_task = rmfield(all_data_task, 'R045_2014_04_18');
-end
 AMPX_Naris_fig_2_task(all_data, all_data_task, 'save_fig', 'yes');
 
 

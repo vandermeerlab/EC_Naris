@@ -1,6 +1,14 @@
 %% Naris occlusion paper sandbox
 
-rat_list = {'R102', 'R104', 'R053'};
+%setup basic analyses paths
+restoredefaultpath
+% to vandermeerlab codebase shared functions and AMPX loading functions
+addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared'))
+addpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared\io\amplipex') % give the loading AMPX functions
+% add the Naris paper functions "Naris_paper" on github
+addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Naris'))
+% add basic functions and circ_stats toolbox
+addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Basic_functions'))
 
 %% parameters
 global PARAMS
@@ -10,6 +18,8 @@ PARAMS.data_dir = 'G:\JK_recordings\Naris'; % raw data dir, should have folders 
 PARAMS.stats_dir = 'G:\Naris\temp'; % where to save the .txt output from the count and power statistics. 
 PARAMS.naris_gamma_inter_dir = 'G:\Naris\temp\Paper_naris_gamma_dec.mat'; %path for storing intermediate naris gamma outputs
 PARAMS.naris_figures_dir = 'G:\Naris\temp\paper_figs'; % where to store figures
+
+rat_list = {'R102', 'R104', 'R053'};
 
 for iRat = 1:length(rat_list)
     cfg.data_path = PARAMS.data_dir;

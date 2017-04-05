@@ -1,5 +1,15 @@
 %% Naris Paper Sandbox
+%setup basic analyses paths
+restoredefaultpath
+% to vandermeerlab codebase shared functions and AMPX loading functions
+addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared'))
+addpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared\io\amplipex') % give the loading AMPX functions
+% add the Naris paper functions "Naris_paper" on github
+addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Naris'))
+% add basic functions and circ_stats toolbox
+addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Basic_functions'))
 
+% set up global parameters for directories to be used during analyses.  
 global PARAMS
 PARAMS.ft_dir ='D:\Users\mvdmlab\My_Documents\GitHub\fieldtrip';  %fieldtrip toolbox building using 
 PARAMS.data_dir = 'D:\DATA\';      % where the raw data has been stored. 
