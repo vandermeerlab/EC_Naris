@@ -16,7 +16,7 @@ function [h1, h_sub2] = AMPX_Naris_fig_1_example(cfg_in, all_data_pre, all_data_
 % EC - 2016-05-23
 
 %% set up parameters
-
+global PARAMS
 cfg_def = [];
 cfg_def.markers = {'#', '+', 'x', 'o'};
 cfg_def.mrk_off = -5;
@@ -36,8 +36,8 @@ if isempty(cfg.session_name) ==1
 end
 %% load the data file to get the raw traces
 fname = strrep(cfg.session_name, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
-fname = strrep(cfg.session_name, '-', '_');
+cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
+% fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 %%
 LoadExpKeys
@@ -247,8 +247,8 @@ end
 %% plot all the raw traces organized from Vl to DM for a high and low gamma event.  
 clear data data_tsd
 fname = strrep(cfg.session_name, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
-fname = strrep(cfg.session_name, '-', '_');
+cd([PARAMS.data_dir '\' fname(1:4) '\' fname(1:15) ])
+% fname = strrep(cfg.session_name, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 
 LoadExpKeys
@@ -332,7 +332,7 @@ set(gcf,'PaperPositionMode','auto')
 %% plot all the raw traces organized from Vl to DM for a high and low gamma event.  
 clear data data_tsd
 fname = strrep(cfg.session_name2, '_', '-');
-cd(['D:\DATA\' fname(1:4) '\' fname(1:15) ])
+cd([PARAS.data_dir '\' fname(1:4) '\' fname(1:15) ])
 fname = strrep(cfg.session_name2, '-', '_');
 [data, ~] = AMPX_Naris_preprocess([],fname,'pre');
 
