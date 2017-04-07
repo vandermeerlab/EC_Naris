@@ -152,9 +152,9 @@ end
 
 %% export the figures
 if exist('save_fig')
-    saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig3_A'], 'fig')
-    saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig3_A'], 'epsc')
+    saveas(h1, [PARAMS.figure_dir '\Fig3_A'], 'fig')
+    saveas(h1, [PARAMS.figure_dir '\Fig3_A'], 'epsc')
     
-    saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig3_B'], 'fig')
-    saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig3_B'], 'epsc')
+    saveas(h2, [PARAMS.figure_dir '\Fig3_B'], 'fig')
+    saveas(h2, [PARAMS.figure_dir '\Fig3_B'], 'epsc')
 end
