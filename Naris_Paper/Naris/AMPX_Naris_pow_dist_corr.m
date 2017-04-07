@@ -13,7 +13,7 @@ function AMPX_Naris_pow_dist_corr(all_data_pre)
 %           -
 %
 % EC - 2016-07-02
-
+global PARAMS;
 %% set up the distance matrix
 [x,y] = meshgrid(1.4:-.2:0);
 
@@ -262,6 +262,5 @@ maximize
 % maximize
 
 %% save the image
-saveas(h1, 'D:\DATA\Paper_figs\Fig6', 'epsc')
-
-saveas(h1, 'D:\DATA\Paper_figs\Fig6', 'fig')
+saveas(h1, cat(2,PARAMS.figure_dir,'\Fig6'), 'epsc');
+saveas(h1, cat(2,PARAMS.figure_dir,'\Fig6'), 'fig')
