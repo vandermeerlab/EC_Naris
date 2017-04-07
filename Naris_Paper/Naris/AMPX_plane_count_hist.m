@@ -40,7 +40,7 @@ fprintf([ band_name ' Gamma\nmean=' num2str(nanmean(a)) ', SD±' num2str(nanstd(a
 fprintf(['\n' band_name ' Random \nmean=' num2str(nanmean(b)) ', SD±' num2str(nanstd(b)) '\n'])
 fprintf('----------------------------------\n\n')
 
-fileID = fopen([PARAMS.stats_dir '\Naris_stats_plane.txt','w+');
+fileID = fopen([PARAMS.stats_dir '\Naris_stats_plane.txt'],'w+');
 fprintf(fileID,datestr(date, 'yyyy-mm-dd-HH'))
 fprintf(fileID, ['\nGamma Plane Fit Statistics'])
 fprintf(fileID, '\n\n\n----------------------------------\n')
