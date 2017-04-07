@@ -1,4 +1,3 @@
-function AMPX_generate_figures()
 %% AMPX_Naris_generate_figures: Generates all the figures used in Carmichael et al. 
 %   
 %     - figure 1
@@ -33,23 +32,22 @@ function AMPX_generate_figures()
 %         - figure
 %
 %
-%EC - 2016-06-14
+% EC - 2016-06-14
+
 global PARAMS
+
 %% load the pre and post data:
-
 load([PARAMS.intermediate_dir '\Naris_all_data_pre.mat']);
-
 load([PARAMS.intermediate_dir '\Naris_all_data_post.mat']);
-
 
 %% Figure 1: individual gamma example (raw and heat map), averages across all rats
 cfg_fig1 = [];
-cfg_fig1.example =63;
+cfg_fig1.example = 63;
 cfg_fig1.example2 = 42; 
 cfg_fig1.example3 = 109;
 cfg_fig1.session_name = 'R061_2014_09_26';
 cfg_fig1.session_name2 = 'R054_2014_10_10'; %'R061_2014_09_26';
-cfg_fig1.version = 1; % this means it will exclude the corrupted sessions for R054 and just use sessions from  2016_10_10 and 2016_10_13;
+cfg_fig1.version = 1; % this means it will exclude the corrupted sessions for R054 and just use sessions from 2016_10_10 and 2016_10_13
 AMPX_Naris_fig_1_example(cfg_fig1, all_data, all_data_post);
 
 

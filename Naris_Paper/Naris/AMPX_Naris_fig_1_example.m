@@ -49,7 +49,7 @@ data_tsd = AMPX2tsd(data_remap_AMPX);
 clear data_remap_AMPX
 
 %% Collect the an example event
-
+fname = strrep(fname, '-', '_');
 evts = all_data_pre.(fname).lg.evts;
 evts_hg = all_data_pre.(fname).hg.evts;
 
@@ -262,6 +262,7 @@ clear data_remap_AMPX
 %% Collect the an example event
 % gather the event times
 
+fname = strrep(fname, '-', '_');
 evts = all_data_pre.(fname).lg.evts;
 evts_hg = all_data_pre.(fname).hg.evts;
 
@@ -344,7 +345,7 @@ data_tsd = AMPX2tsd(data_remap_AMPX);
 % clear data
 clear data_remap_AMPX
 %%
-
+fname = strrep(fname, '-', '_');
 evts = all_data_pre.(fname).lg.evts;
 evts_hg = all_data_pre.(fname).hg.evts;
 
@@ -415,21 +416,21 @@ SetFigure([], gcf)
 
 %% save the figures
 % save the cfg.example
-saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig1_C_D'], 'epsc')
+saveas(h1, [PARAMS.figure_dir '\Fig1_C_D'], 'epsc')
 
-saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig1_E'], 'epsc')
+saveas(h2, [PARAMS.figure_dir '\Fig1_E'], 'epsc')
 
-saveas(h3, [PARAMS.figure_dir '\Paper_figs\FigS1'], 'epsc')
+saveas(h3, [PARAMS.figure_dir '\FigS1'], 'epsc')
 set(gcf, 'renderer', 'opengl') % switch renderer to avoid eps issue where colour bars come out black. 
-saveas(h4, [PARAMS.figure_dir '\Paper_figs\FigS2a'], 'epsc')
-saveas(h5, [PARAMS.figure_dir '\Paper_figs\FigS2b'], 'epsc')
+saveas(h4, [PARAMS.figure_dir '\FigS2a'], 'epsc')
+saveas(h5, [PARAMS.figure_dir '\FigS2b'], 'epsc')
 set(gcf, 'renderer', 'painters')
 
-saveas(h1, [PARAMS.figure_dir '\Paper_figs\Fig1_C_D'], 'fig')
+saveas(h1, [PARAMS.figure_dir '\Fig1_C_D'], 'fig')
 
-saveas(h2, [PARAMS.figure_dir '\Paper_figs\Fig1_E'], 'fig')
+saveas(h2, [PARAMS.figure_dir '\Fig1_E'], 'fig')
 
-saveas(h3, [PARAMS.figure_dir '\Paper_figs\FigS1'], 'fig')
+saveas(h3, [PARAMS.figure_dir '\FigS1'], 'fig')
 
-saveas(h4, [PARAMS.figure_dir '\Paper_figs\FigS2a'], 'fig')
-saveas(h5, [PARAMS.figure_dir '\Paper_figs\FigS2b'], 'fig')
+saveas(h4, [PARAMS.figure_dir '\FigS2a'], 'fig')
+saveas(h5, [PARAMS.figure_dir '\FigS2b'], 'fig')
