@@ -11,6 +11,7 @@ function [CSD] = AMPX_cycle_CSD(cfg_in, all_data)
 %
 % EC - 2016-05-19
 
+global PARAMS;
 
 %% parameters
 cfg_def.interp_factor = 0.1; % new spacing for interpolation
@@ -145,8 +146,8 @@ for iband = 1:2
     
     % text(30, 5, 'prev')
     %     axis off
-    print(['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD_R061_' bands{iband} '_cycles'], '-depsc')
-    saveas(gcf, ['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD\CSD_R061_'  datestr(date, 'yyyy-mm-dd') bands{iband} '_avg_CSD_cycle.fig'])
+    print(cat(2,PARAMS.figure_dir,'\CSD_R061_',bands{iband},'_cycles'), '-depsc');
+    saveas(gcf,cat(2,PARAMS.figure_dir,'\CSD_R061_',datestr(date, 'yyyy-mm-dd'),bands{iband},'_avg_CSD_cycle.fig'));
     
     h2 = figure(2);
     imagesc(1:length(csd),CSD.R054_2014_10_10.(bands{iband}).CSDelecinds,CSD.R054.(bands{iband}).csd)
@@ -161,8 +162,10 @@ for iband = 1:2
     set(gca, 'ytick', [CSD.R054_2014_10_10.(bands{iband}).CSDelecinds(1), CSD.R054_2014_10_10.(bands{iband}).CSDelecinds(end)], 'yticklabel', {}, 'fontname', 'helvetica')
 %     xlabel('triplet phase'); ylabel('electrode number');
     SetFigure([], gcf)
-    print(['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD_R054_' bands{iband} '_cycles'], '-depsc')
-    saveas(gcf, ['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD\CSD_R054_'  datestr(date, 'yyyy-mm-dd') bands{iband} '_avg_CSD_cycle.fig'])
+    print(cat(2,PARAMS.figure_dir,'\CSD_R054_',bands{iband},'_cycles'), '-depsc');
+    saveas(gcf,cat(2,PARAMS.figure_dir,'\CSD_R054_',datestr(date, 'yyyy-mm-dd'),bands{iband},'_avg_CSD_cycle.fig'));
+    
+    
     
     h3 = figure(3);
     imagesc(1:length(csd),CSD.R049_2014_02_07.(bands{iband}).CSDelecinds,CSD.R049.(bands{iband}).csd)
@@ -179,9 +182,8 @@ for iband = 1:2
     SetFigure([], gcf)
     SetFigure([], gcf)
     set(gca, 'xtick', [])
-    
-    print(['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD_R049_' bands{iband} '_cycles'], '-depsc')
-    saveas(gcf, ['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD\CSD_R049'  datestr(date, 'yyyy-mm-dd') bands{iband} '_avg_CSD_cycle.fig'])
+    print(cat(2,PARAMS.figure_dir,'\CSD_R049_',bands{iband},'_cycles'), '-depsc');
+    saveas(gcf,cat(2,PARAMS.figure_dir,'\CSD_R049_',datestr(date, 'yyyy-mm-dd'),bands{iband},'_avg_CSD_cycle.fig'));
     
     h4 = figure(4);
     imagesc(1:length(csd),CSD.R045_2014_04_16.(bands{iband}).CSDelecinds,CSD.R045.(bands{iband}).csd)
@@ -199,8 +201,9 @@ for iband = 1:2
     SetFigure([], gcf)
     axesHandles = findobj(get(gcf,'Children'), 'flat','Type','axes');
     set(axesHandles, 'fontsize', 18, 'fontname', 'helvetica')
-    print(['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD_R045' bands{iband} 'cycles'], '-depsc')
-    saveas(gcf, ['C:\Users\mvdmlab\Dropbox\Naris_Paper\CSD_figure\CSD\CSD_R045'  datestr(date, 'yyyy-mm-dd') bands{iband} '_avg_CSD_cycle.fig'])
+    print(cat(2,PARAMS.figure_dir,'\CSD_R045_',bands{iband},'_cycles'), '-depsc');
+    saveas(gcf,cat(2,PARAMS.figure_dir,'\CSD_R045_',datestr(date, 'yyyy-mm-dd'),bands{iband},'_avg_CSD_cycle.fig'));
+    
     close all
 end
 

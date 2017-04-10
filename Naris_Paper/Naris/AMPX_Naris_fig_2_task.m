@@ -9,6 +9,8 @@ function AMPX_Naris_fig_2_task(all_data_pre, all_data_task, varargin)
 %% extract inputs
 extract_varargin
 
+global PARAMS;
+
 %% load the data for the task events
 % load('C:\temp\Naris_all_data_task')
 
@@ -73,8 +75,8 @@ end
 
 %% export part 1
 if exist('save_fig')
-    saveas(h1, 'D:\DATA\Paper_figs\Fig2_A', 'epsc')
-    saveas(h1, 'D:\DATA\Paper_figs\Fig2_A', 'fig')
+    saveas(h1, cat(2, PARAMS.figure_dir,'\Fig2_A'), 'epsc');
+    saveas(h1, cat(2, PARAMS.figure_dir,'\Fig2_A'), 'fig')
 end
 %% get the counts across all pre and post recording sessions
 clear all_data_task
@@ -104,8 +106,8 @@ end
 hax1 = gca;
 SetFigure([], gcf)
 if exist('save_fig')
-    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B', 'epsc')
-    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B', 'fig')
+    saveas(gcf, cat(2, PARAMS.figure_dir,'\Fig2_B'), 'epsc')
+    saveas(gcf, cat(2, PARAMS.figure_dir,'\Fig2_B'), 'fig')
 end
 hf1 = figure(22);
 set(gcf,'PaperPositionMode','auto')
@@ -122,8 +124,8 @@ set(hax2, 'Position', pos);
 hax11 = gca;
 SetFigure([], gcf)
 if exist('save_fig')
-    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_C', 'epsc')
-    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_C', 'fig')
+    saveas(gcf, cat(2, PARAMS.figure_dir,'\Fig2_C'), 'epsc')
+    saveas(gcf, cat(2, PARAMS.figure_dir,'\Fig2_C'), 'fig')
 end
 hf1 = figure(22);
 s2 = subplot(5,2,[2 4]);
@@ -221,6 +223,7 @@ maximize
 
 %% export part 1
 if exist('save_fig')
-    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B_C_new', 'epsc')
-    saveas(gcf, 'D:\DATA\Paper_figs\Fig2_B_C_new', 'fig')
+    saveas(gcf, cat(2, PARAMS.figure_dir,'\Fig2_B_C_new'), 'epsc')
+    % saveas(gcf, cat(2, PARAMS.figure_dir,'\Fig2_B_C_new'), 'fig') % fails
+    % with obscure error -- MvdM
 end

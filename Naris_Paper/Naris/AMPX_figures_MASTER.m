@@ -1,4 +1,3 @@
-function AMPX_generate_figures()
 %% AMPX_Naris_generate_figures: Generates all the figures used in Carmichael et al. 
 %   
 %     - figure 1
@@ -33,33 +32,29 @@ function AMPX_generate_figures()
 %         - figure
 %
 %
-%EC - 2016-06-14
+% EC - 2016-06-14
+
 global PARAMS
+
 %% load the pre and post data:
-
 load([PARAMS.intermediate_dir '\Naris_all_data_pre.mat']);
-
 load([PARAMS.intermediate_dir '\Naris_all_data_post.mat']);
-
 
 %% Figure 1: individual gamma example (raw and heat map), averages across all rats
 cfg_fig1 = [];
-cfg_fig1.example =63;
+cfg_fig1.example = 63;
 cfg_fig1.example2 = 42; 
 cfg_fig1.example3 = 109;
 cfg_fig1.session_name = 'R061_2014_09_26';
 cfg_fig1.session_name2 = 'R054_2014_10_10'; %'R061_2014_09_26';
-cfg_fig1.version = 1; % this means it will exclude the corrupted sessions for R054 and just use sessions from  2016_10_10 and 2016_10_13;
+cfg_fig1.version = 1; % this means it will exclude the corrupted sessions for R054 and just use sessions from 2016_10_10 and 2016_10_13
 AMPX_Naris_fig_1_example(cfg_fig1, all_data, all_data_post);
-
 
 %% Figure 2: 2x2x2 task
 load([PARAMS.intermediate_dir '\Naris_all_data_task.mat']);
 AMPX_Naris_fig_2_task(all_data, all_data_task, 'save_fig', 'yes');
 
-
 %% Figure 3: creates 4 x 2 figues of the phase differences for both across entire gamma events and within the triplets
-
 AMPX_Naris_fig_3_phase([], all_data, all_data_post, 'save_fig', 'yes');
 
 %% Figure 4: CSD for same event used in figure 1 C/D and average for each rat (50/80)
@@ -69,13 +64,12 @@ cfg_csd.session_name = cfg_fig1.session_name;
 AMPX_Naris_fig_4_CSD(cfg_csd, all_data)
 
 %% figure 6 power by distance
-
 AMPX_Naris_pow_dist_corr(all_data)
 
 %% get the spindle plot
 cfg = [];
 AMPX_Naris_PCA(cfg, all_data)
 
-
 %% get all event stats
-stats = Naris_get_all_event_stats(all_data,all_data_post, all_data_task);
+load([PARAMS.intermediate_dir '\Naris_all_data_task.mat']);
+stats = Naris_get_all_event_stats(all_data,all_data_post,all_data_task);

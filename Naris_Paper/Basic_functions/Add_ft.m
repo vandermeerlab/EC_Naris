@@ -1,7 +1,9 @@
 function Add_ft()
 
+global PARAMS;
+
 current = cd;
-cd('D:\Users\mvdmlab\My_Documents\GitHub\fieldtrip')
+cd(PARAMS.ft_dir)
 ft_defaults
 cd(current)
 disp('FT added be careful')
