@@ -9,7 +9,7 @@
 clear all; pack
 
 global PARAMS
-PARAMS.github_dir = 'D:\My_Documents\GitHub\';
+PARAMS.github_dir = 'D:\My_Documents\GitHub';
 PARAMS.ft_dir = cat(2,PARAMS.github_dir,'fieldtrip'); % fieldtrip toolbox
 PARAMS.data_dir = 'D:\DATA\'; % where the raw data has been stored 
 PARAMS.stats_dir = 'D:\DATA\temp'; % where you would like the stats output to be saved as a .txt
@@ -17,11 +17,11 @@ PARAMS.CSD_dir = cat(2,PARAMS.github_dir,'EC_Naris\Naris_Paper\BuzCSD'); % keep 
 PARAMS.figure_dir = 'D:\DATA\temp'; % where you would like the figures to be saved
 PARAMS.intermediate_dir  = 'D:\DATA\temp'; % where to put intermediate files 
 
-% set up path
+% set up path; change this to reflect your local machine's setup
 restoredefaultpath
-addpath(genpath(cat(2,PARAMS.github_dir,'vandermeerlab\code-matlab\shared')));
-addpath(genpath(cat(2,PARAMS.github_dir,'EC_Naris\Naris_Paper\Basic_functions')));
-addpath(genpath(cat(2,PARAMS.github_dir,'EC_Naris\Naris_Paper\Naris')));
+addpath(genpath(cat(2,PARAMS.github_dir,'\vandermeerlab\code-matlab\shared')));
+addpath(genpath(cat(2,PARAMS.github_dir,'\EC_Naris\Naris_Paper\Basic_functions')));
+addpath(genpath(cat(2,PARAMS.github_dir,'\EC_Naris\Naris_Paper\Naris')));
 
 %% first, generate subsampled, organized files from raw data
 % list of sessions to analyze (pre epoch, run this and then the 'loop...' and 'save...' cells below)

@@ -1,24 +1,28 @@
-%% Naris occlusion paper sandbox
+%% Naris occlusion paper master script
+%
+% set up global parameters for directories to be used during analyses
+%
+% edit to correspond to the setup on the machine you want to run this
+% on
+%
+% NOTE need to update location of naris code once added to papers repo
+clear all; pack
 
-%setup basic analyses paths
-restoredefaultpath
-% to vandermeerlab codebase shared functions and AMPX loading functions
-addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared'))
-addpath('D:\Users\mvdmlab\My_Documents\GitHub\vandermeerlab\code-matlab\shared\io\amplipex') % give the loading AMPX functions
-% add the Naris paper functions "Naris_paper" on github
-addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Naris'))
-% add basic functions and circ_stats toolbox
-addpath(genpath('D:\Users\mvdmlab\My_Documents\GitHub\EC_Naris\Naris_Paper\Basic_functions'))
-
-%% set up parameters
 global PARAMS
-PARAMS = [];
-% PARAMS.data_dir = '/Users/jericcarmichael/Documents/Nairs_data'; % raw data files
-PARAMS.data_dir = 'G:\JK_recordings\Naris'; % raw data dir, should have folders for each rat with subfolders for each session
-PARAMS.stats_dir = 'G:\Naris\temp'; % where to save the .txt output from the count and power statistics. 
-PARAMS.naris_gamma_inter_dir = 'G:\Naris\temp\Paper_naris_gamma_dec.mat'; %path for storing intermediate naris gamma outputs
-PARAMS.naris_figures_dir = 'G:\Naris\temp\paper_figs'; % where to store figures
+PARAMS.github_dir = 'D:\My_Documents\GitHub';
+PARAMS.ft_dir = cat(2,PARAMS.github_dir,'fieldtrip'); % fieldtrip toolbox
+PARAMS.data_dir = 'D:\DATA\'; % where the raw data has been stored 
+PARAMS.stats_dir = 'D:\DATA\temp'; % where you would like the stats output to be saved as a .txt
+PARAMS.naris_gamma_inter_dir = 'D:\DATA\temp\Paper_naris_gamma_dec.mat'; %path for storing intermediate naris gamma outputs
+PARAMS.naris_figures_dir = 'D:\DATA\temp'; % where to store figures
 
+% set up path; change this to reflect your local machine's setup
+restoredefaultpath
+addpath(genpath(cat(2,PARAMS.github_dir,'\vandermeerlab\code-matlab\shared')));
+addpath(genpath(cat(2,PARAMS.github_dir,'\EC_Naris\Naris_Paper\Basic_functions')));
+addpath(genpath(cat(2,PARAMS.github_dir,'\EC_Naris\Naris_Paper\Naris')));
+
+%%
 rat_list = {'R102', 'R104', 'R053'};
 
 for iRat = 1:length(rat_list)
