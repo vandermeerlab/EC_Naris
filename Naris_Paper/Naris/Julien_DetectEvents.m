@@ -1,4 +1,4 @@
-function [evt_iv,evt_thr] = Julien_DetectEvents(cfg_in,csc,ExpKeys)
+function [evt_iv,evt_thr] = DetectEvents(cfg_in,csc,ExpKeys)
 % function [evt_iv,evt_thr] = Julien_DetectEvents(cfg_in,csc,ExpKeys)
 %
 % detects LFP events in specified frequency band exceeding specified
